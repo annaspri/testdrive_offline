@@ -44,7 +44,7 @@ block content
       i.big.photo.link.icon
   
 
-    .ui.fluid.card.test(data-hint="Click on the post to think about its impact on digital footprints!", data-position="top-left")
+    .ui.fluid.card.test
       .ui.dimmer.flag
         .content
           .center
@@ -60,8 +60,8 @@ block content
               span='Andrew Thomas'
       .img.post
         img(src=cdn+'/digfootga1.jpg' style='max-width:100%;' onclick='openPostDigfootSim()')
-      .content
-        .description the first day after my bday and guess what i HAVE to do? clean your room says my momh
+      .content(data-hint="Click on the post to think about its impact on digital footprints!", data-hintPosition="bottom-middle")
+        .description the first day after my bday and guess what i HAVE to do? clean your room says my mom
       .three.ui.bottom.attached.icon.buttons
         .ui.reply.button(tabindex='0')
           i.reply.icon
@@ -114,7 +114,7 @@ block content
               span='Jenny Schmidt'
       .img.post
         img(src=cdn+'/digfootga2.jpg' style='max-width:100%;' onclick='openPostDigfootSim()')
-      .content
+      .content(data-hint="Click on the post to think about its impact on digital footprints!", data-hintPosition="bottom-middle")
         .description Here is a picture of my cat!!
       .three.ui.bottom.attached.icon.buttons
         .ui.reply.button(tabindex='0')
