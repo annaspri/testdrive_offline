@@ -161,11 +161,19 @@ block content
             hr
             .ui.form
               .inline.fields
-                label(for='unsure', name='unsure') 
+                label(for='direct', name='direct')
                 .field
                   .ui.checkbox
                     input(type='checkbox')
-                    label(for='unsure', style="font-size:120%;", tabindex='0')  I wasn’t sure how to respond
+                    label(for='ignore', style="font-size:120%;", tabindex='0')  I was direct
+            hr
+            .ui.form
+              .inline.fields
+                label(for='else', name='else')
+                .field
+                  .ui.checkbox
+                    input(type='checkbox')
+                    label(for='ignore', style="font-size:120%;", tabindex='0')  I did something else
             hr
     .ui.raised.segment.responseOne
       .ui.label(style="background-color:#2185d08a;color:#000000d1;")
