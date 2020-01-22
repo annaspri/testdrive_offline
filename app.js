@@ -18,12 +18,23 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
-const sass = require('node-sass-middleware');
 var schedule = require('node-schedule');
-
+const aws = require('aws-sdk');
 //multer is how we send files (like images) thru web forms
 const multer = require('multer');
-//Math.random().toString(36)+'00000000000000000').slice(2, 10) + Date.now()
+
+/**
+ * Load environment variables from .env file, where API keys and passwords are configured.
+ */
+dotenv.config({ path: '.env' });
+
+/*
+aws.config.update({
+  secretAccessKey: process.env.AWS_SECRET,
+  accessKeyId: process.env.AWS_ACCESS,
+  region: "us-east-2"
+});
+*/
 
 //multer options for basic files
 var m_options = multer.diskStorage({ destination : path.join(__dirname, 'uploads') ,
@@ -55,10 +66,6 @@ const upload= multer({ storage: m_options });
 const userpostupload= multer({ storage: userpost_options });
 const useravatarupload= multer({ storage: useravatar_options });
 
-/**
- * Load environment variables from .env file, where API keys and passwords are configured.
- */
-dotenv.config({ path: '.env' });
 
 /**
  * Controllers (route handlers).
@@ -66,11 +73,8 @@ dotenv.config({ path: '.env' });
 const actorsController = require('./controllers/actors');
 const scriptController = require('./controllers/script');
 const classController = require('./controllers/class');
-const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const notificationController = require('./controllers/notification');
-const apiController = require('./controllers/api');
-const contactController = require('./controllers/contact');
 
 /**
  * API keys and Passport configuration.
@@ -104,7 +108,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.connect(process.env.PRO_MONGODB_URI || process.env.PRO_MONGOLAB_URI);
 mongoose.connection.on('error', (err) => {
   console.error(err);
-  console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
+  //console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
   process.exit();
 });
 
@@ -115,13 +119,15 @@ mongoose.connection.on('error', (err) => {
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-app.use(expressStatusMonitor());
+//app.use(expressStatusMonitor());
 //We do compression on our production server using nginx as a reverse proxy
 //app.use(compression());
+/*
 app.use(sass({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public')
 }));
+*/
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -135,7 +141,7 @@ app.use(session({
     path: '/',
     httpOnly: true,
     secure: false,
-    maxAge: 7200000
+    maxAge: 1209600000
   },
   secret: process.env.SESSION_SECRET,
   store: new MongoStore({
@@ -153,8 +159,10 @@ app.use(flash());
 //multer and lusca no not play well together
 app.use((req, res, next) => {
   if ((req.path === '/api/upload') || (req.path === '/post/new') || (req.path === '/account/profile') || (req.path === '/account/signup_info_post')|| (req.path === '/classes')) {
-    console.log("Not checking CSRF - out path now");
+    //console.log("Not checking CSRF - out path now");
     //console.log("@@@@@request is " + req);
+    //console.log("@@@@@file is " + req.file);
+    //console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     next();
   } else {
     //lusca.csrf()(req, res, next);
@@ -196,8 +204,8 @@ app.use((req, res, next) => {
 
 //helper function just to see what is in the body
 function check(req, res, next) {
-    console.log("@@@@@@@@@@@@Body is now ");
-    console.log(req.body);
+    //console.log("@@@@@@@@@@@@Body is now ");
+    //console.log(req.body);
     next();
 }
 
@@ -205,6 +213,7 @@ function check(req, res, next) {
 //All of our static files that express willl automatically server for us
 //in production, we have nginx server this instead to take the load off out Node app
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+app.use(express.static(path.join(__dirname, 'public2'), { maxAge: 31557600000 }));
 app.use('/semantic',express.static(path.join(__dirname, 'semantic'), { maxAge: 31557600000 }));
 app.use(express.static(path.join(__dirname, 'uploads'), { maxAge: 31557600000 }));
 app.use(express.static(path.join(__dirname, 'post_pictures'), { maxAge: 31557600000 }));
@@ -229,12 +238,15 @@ app.get('/', function (req, res) {
 //main route for getting the simulation (Free Play) for a given lesson mod
 app.get('/modual/:modId', passportConfig.isAuthenticated, scriptController.getScript);
 
+app.get('/habitsTimer', passportConfig.isAuthenticated, userController.getHabitsTimer);
+app.get('/habitsNotificationTimes', passportConfig.isAuthenticated, scriptController.getNotificationTimes);
+
 //THIS IS FOR LOAD TESTING
 app.get('/testing/:modId', scriptController.getScriptFeed);
 
-//post a new user created post
+//post a new user created post s3_upload
 //app.post('/post/new', userpostupload.single('picinput'), check, csrf, scriptController.newPost);
-app.post('/post/new', userpostupload.single('picinput'), check, scriptController.newPost);
+app.post('/post/new', check, scriptController.newPost);
 
 //app.post('/account/profile', passportConfig.isAuthenticated, useravatarupload.single('picinput'), check, csrf, userController.postUpdateProfile);
 app.post('/account/profile', passportConfig.isAuthenticated, useravatarupload.single('picinput'), check, userController.postUpdateProfile);
@@ -312,6 +324,18 @@ app.get('/sim2/:modId', passportConfig.isAuthenticated, function (req, res) {
   });
 });
 
+app.get('/sim3/:modId', passportConfig.isAuthenticated, function (req, res) {
+  res.render(req.param("modId") + '/' + req.param("modId")+'_sim3', {
+    title: 'Guided Activity'
+  });
+});
+
+app.get('/sim4/:modId', passportConfig.isAuthenticated, function (req, res) {
+  res.render(req.param("modId") + '/' + req.param("modId")+'_sim4', {
+    title: 'Guided Activity'
+  });
+});
+
 app.get('/trans/:modId', passportConfig.isAuthenticated, function (req, res) {
   res.render(req.param("modId") + '/' + req.param("modId")+'_trans', {
     title: 'Recap'
@@ -348,6 +372,12 @@ app.get('/free-play3/privacy', passportConfig.isAuthenticated, function (req, re
   });
 });
 
+app.get('/free-play4/privacy', passportConfig.isAuthenticated, function (req, res) {
+  res.render('privacy/privacy_free-play4', {
+    title: 'Free-Play 4'
+  });
+});
+
 app.get('/free-settings/privacy', passportConfig.isAuthenticated, function (req, res) {
   res.render('privacy/privacy_free-play_settings', {
     title: 'Free-Play Settings'
@@ -357,6 +387,12 @@ app.get('/free-settings/privacy', passportConfig.isAuthenticated, function (req,
 app.get('/free-settings2/privacy', passportConfig.isAuthenticated, function (req, res) {
   res.render('privacy/privacy_free-play_settings2', {
     title: 'Free-Play Settings 2'
+  });
+});
+
+app.get('/free-settings3/privacy', passportConfig.isAuthenticated, function (req, res) {
+  res.render('privacy/privacy_free-play_settings3', {
+    title: 'Free-Play Settings 3'
   });
 });
 
@@ -384,7 +420,7 @@ app.get('/tut_guide/:modId', passportConfig.isAuthenticated, function (req, res)
 });
 
 app.get('/results/:modId', passportConfig.isAuthenticated, function (req, res) {
-  console.log(req.param("modId") + '/' + req.param("modId")+'_results')
+  //console.log(req.param("modId") + '/' + req.param("modId")+'_results')
   res.render(req.param("modId") + '/' + req.param("modId")+'_results', {
     title: 'Reflection'
   });
@@ -392,9 +428,31 @@ app.get('/results/:modId', passportConfig.isAuthenticated, function (req, res) {
 
 //For privacy settings page that doesnt do anything
 app.get('/settings/privacy', passportConfig.isAuthenticated, function (req, res) {
-  console.log('privacy/privacy_settings')
+  //console.log('privacy/privacy_settings')
   res.render('privacy/privacy_settings', {
     title: 'Privacy Settings'
+  });
+});
+
+//The interest pages for the targeted ads Module
+app.get('/food/targeted', passportConfig.isAuthenticated, function (req, res) {
+  //console.log('privacy/privacy_settings')
+  res.render('targeted/targeted_food', {
+    title: 'Food Interest Page'
+  });
+});
+
+app.get('/sports/targeted', passportConfig.isAuthenticated, function (req, res) {
+  //console.log('privacy/privacy_settings')
+  res.render('targeted/targeted_sports', {
+    title: 'Sports Interest Page'
+  });
+});
+
+app.get('/gaming/targeted', passportConfig.isAuthenticated, function (req, res) {
+  //console.log('privacy/privacy_settings')
+  res.render('targeted/targeted_gaming', {
+    title: 'Gaming Interest Page'
   });
 });
 
@@ -405,7 +463,7 @@ app.get('/class/:classId', passportConfig.isAuthenticated, classController.getCl
 app.post('/classes', passportConfig.isAuthenticated, classController.postCreateClass);
 
 //User's Page
-app.get('/me', passportConfig.isAuthenticated, userController.getMe);
+app.get('/me/:modId', passportConfig.isAuthenticated, userController.getMe);
 app.get('/notifications', passportConfig.isAuthenticated, notificationController.getNotifications);
 
 
@@ -465,6 +523,8 @@ app.get('/bell', passportConfig.isAuthenticated, userController.checkBell);
 //app.get('/feed', passportConfig.isAuthenticated, scriptController.getScript);
 app.post('/feed', passportConfig.isAuthenticated, scriptController.postUpdateFeedAction);
 app.post('/deleteUserFeedActions', passportConfig.isAuthenticated, scriptController.postDeleteFeedAction);
+app.post('/interest', passportConfig.isAuthenticated, userController.postUpdateInterestSelection);
+app.post('/habitsTimer', passportConfig.isAuthenticated, userController.postUpdateHabitsTimer);
 //postDeleteAccount
 //app.post('/deleteAccount', passportConfig.isAuthenticated, userController.getDeleteAccount);
 app.get('/delete', passportConfig.isAuthenticated, userController.getDeleteAccount);
@@ -495,8 +555,8 @@ app.use(function(err, req, res, next) {
  * Start Express server.
  */
 app.listen(app.get('port'), () => {
-  console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env')); 
-  console.log('  Press CTRL-C to stop\n');
+  //console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env')); 
+  //console.log('  Press CTRL-C to stop\n');
 });
 
 module.exports = app;

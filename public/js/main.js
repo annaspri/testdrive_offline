@@ -7,7 +7,9 @@ $('#loading').show();
 
 $(window).on("load", function () {
 
-
+/*
+Start chat box code
+*/
   $('.container.clearfix').each(
     function () {
 
@@ -134,25 +136,29 @@ $(window).on("load", function () {
 
     console.log("START OF CHATS!");
     console.log(pathArray);
-     if(pathArray[2] == 'safe-posting' ) {
+     if((pathArray[2] == 'safe-posting' ) || (pathArray[2] == 'phishing' )) {
       chat.init();
      };
 
   });
 
   //Minimize a chat box
-  $('a.chat-minimize').click(function () {
-     //code goes here
+  $('a.chat-minimize').click(function (e) {
+     e.preventDefault();
      let chat = $(this).closest('.chat').children('.chat-history');
      chat.slideToggle(300, 'swing');
   });
 
   //Close a chat box
-  $('a.chat-close').click(function () {
-     //code goes here
+  $('a.chat-close').click(function (e) {
+     e.preventDefault();
      let chat = $(this).closest('.chat');
      chat.fadeOut(300, 'swing');
   });
+
+/*
+end chat box code
+*/
 
   //close loading dimmer on load
   $('#loading').hide();
@@ -167,7 +173,7 @@ $(window).on("load", function () {
         ;
     });
 
-  //make checkbox work
+  //activate checkboxes
   $('.ui.checkbox')
     .checkbox();
 
@@ -225,6 +231,8 @@ $(window).on("load", function () {
 
     }
   });
+
+
 
   //Like a comment
   $('a.like.comment')
@@ -288,8 +296,11 @@ $(window).on("load", function () {
 
   //get add new feed post modal to work
   $("#newpost, a.item.newpost").click(function () {
-    //console.log("Clicking new Post");
     $(' .ui.small.post.modal').modal('show');
+    //lazy load the images in the modal
+    $(".lazy").each(function() {
+        $(this).attr('src', $(this).attr('data-src'));
+    });
   });
 
     //get add new feed post modal to work
@@ -370,7 +381,7 @@ $(window).on("load", function () {
   });
 
   //add humanized time to all posts
-  $('.right.floated.time.meta, .date.sim').each(function () {
+  $('.right.floated.time.meta, .date.sim, .time.notificationTime').each(function () {
     var ms = parseInt($(this).text(), 10);
     let time = new Date(ms);
     $(this).text(humanized_time_span(time));
@@ -394,7 +405,7 @@ $(window).on("load", function () {
       }
       else {
         e.preventDefault();
-        alert('Please go through each blue dot to proceed further !');
+        //alert('Please go through each blue dot to proceed further !');
       }
 
     });
@@ -411,13 +422,26 @@ $(window).on("load", function () {
       }
       else {
         e.preventDefault();
-        alert('Please go through each blue dot to proceed further !');
+        //alert('Please go through each blue dot to proceed further !');
       }
 
     });
 
+/*
+Start button links
+*/
+
   //Cyberbullying to Transition
   $('.ui.big.green.labeled.icon.button.cybertutorial')
+    .on('click', function () {
+      console.log(window.location.pathname)
+      let pathArray = window.location.pathname.split('/');
+      console.log(pathArray);
+      window.location.href = '/tutorial/' + pathArray[2];
+    });
+
+  //Cyberbullying to Transition (blue button)
+  $('.ui.big.blue.labeled.icon.button.cybertutorial')
     .on('click', function () {
       console.log(window.location.pathname)
       let pathArray = window.location.pathname.split('/');
@@ -433,6 +457,14 @@ $(window).on("load", function () {
       window.location.href = '/sim/' + pathArray[2];
     });
 
+    //Cyberbullying to Transition (blue button)
+    $(document).on('click', '.ui.big.labeled.icon.button.cybersim.blue', function () {
+        console.log(window.location.pathname)
+        let pathArray = window.location.pathname.split('/');
+        console.log(pathArray);
+        window.location.href = '/sim/' + pathArray[2];
+      });
+
   //Cyberbullying to Transition 1
   $(document).on('click', '.ui.big.labeled.icon.button.cybersim1.green', function () {
       console.log(window.location.pathname)
@@ -441,7 +473,19 @@ $(window).on("load", function () {
       window.location.href = '/sim1/' + pathArray[2];
     });
 
-  //Cyberbullying to Transition
+  //Privacy sim2 to Tutorial
+  $(document).on('click', '.ui.big.labeled.icon.button.privacytutorial.green', function () {
+      console.log(window.location.pathname)
+      window.location.href = '/tutorial/privacy';
+    });
+
+  //Privacy sim to trans2
+  $(document).on('click', '.ui.big.labeled.icon.button.privacytrans2.green', function () {
+      console.log(window.location.pathname)
+      window.location.href = '/trans2/privacy';
+    });
+
+  //To sim2
   $(document).on('click', '.ui.big.labeled.icon.button.cybersim2.green', function () {
       console.log(window.location.pathname)
       let pathArray = window.location.pathname.split('/');
@@ -461,7 +505,19 @@ $(window).on("load", function () {
       window.location.href = '/free-play2/privacy';
     });
 
-  //Privacy free-play2 to settings2
+  //Privacy free-play2 to settings3
+  $(document).on('click', '.ui.big.labeled.icon.button.settings3.green', function () {
+      console.log(window.location.pathname)
+      window.location.href = '/free-settings3/privacy';
+    });
+
+  //Privacy settings3 to free-play4
+  $(document).on('click', '.ui.big.labeled.icon.button.free4.green', function () {
+      console.log(window.location.pathname)
+      window.location.href = '/free-play4/privacy';
+    });
+
+  //Privacy free-play4 to settings2
   $(document).on('click', '.ui.big.labeled.icon.button.settings2.green', function () {
       console.log(window.location.pathname)
       window.location.href = '/free-settings2/privacy';
@@ -504,6 +560,15 @@ $(window).on("load", function () {
   ///modual/:modId
   //Cyberbullying Transition to freeplay
   $('.ui.big.green.labeled.icon.button.cyber_script')
+    .on('click', function () {
+      console.log(window.location.pathname)
+      let pathArray = window.location.pathname.split('/');
+      console.log(pathArray);
+      window.location.href = '/modual/' + pathArray[2];
+    });
+
+  //Cyberbullying Transition to freeplay (blue button)
+  $('.ui.big.blue.labeled.icon.button.cyber_script')
     .on('click', function () {
       console.log(window.location.pathname)
       let pathArray = window.location.pathname.split('/');
@@ -583,6 +648,10 @@ $(window).on("load", function () {
       let pathArray = window.location.pathname.split('/');
       window.location.href = '/account/' + pathArray[2];
     });
+
+/*
+end button links
+*/
 
   //this is the REPORT User button
   $('button.ui.button.report')
@@ -669,7 +738,7 @@ $(window).on("load", function () {
   //this is the LIKE button for posts
   $('.like.button')
     .on('click', function () {
-
+      console.log("CLICK LIKE");
       //if already liked, unlike if pressed
       if ($(this).hasClass("red")) {
         console.log("***********UNLIKE: post");
@@ -692,21 +761,13 @@ $(window).on("load", function () {
     });
 
   //lazy loading of images
-  $('#content .fluid.card .img img')
+  $('#content .fluid.card .img img, img.ui.avatar.image, a.avatar.image img')
     .visibility({
       type: 'image',
       offset: 0,
-      //transition : 'fade in',
-      //duration   : 1000,
-
       onLoad: function (calculations) {
         console.log("@@@@@@@ Real Image @@@@@@@@@");
-        //var data_src = $(this).attr( "data-src" );
-        //$(this).attr( "src",  data_src);
-        //style="color: inherit; display: inline;"
-        //$(this).attr( "style",  "max-width:100%;");
-        $('#content .fluid.card .img img').visibility('refresh');
-
+        $('#content .fluid.card .img img, img.ui.avatar.image, a.avatar.image img').visibility('refresh');
       }
     })
     ;
@@ -746,6 +807,7 @@ $(window).on("load", function () {
       let mod = pathArray[2];
 
       if(mod =="digital-literacy")
+
       {
         console.log("CLICKING ON DIG INGO FLAG")
         $('input[type=checkbox]').prop('checked',false);

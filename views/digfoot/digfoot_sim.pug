@@ -2,7 +2,7 @@
 extends ../ui_layout
   
 block content
-  -var cdn = "https://testdrive.sfo2.cdn.digitaloceanspaces.com";
+  -var cdn = "https://dhpd030vnpk29.cloudfront.net";
   .computer.only.tablet.only.four.wide.column 
   #content.eight.wide.computer.ten.wide.tablet.sixteen.wide.mobile.column()
     
@@ -14,15 +14,19 @@ block content
              .field
                .ui.checkbox
                  input(type='checkbox')
-                 label The post will have a negative impact on the poster’s digital footprint.
+                 label The post will have a negative impact on this person’s digital footprint.
              .field
                .ui.checkbox
                  input(type='checkbox')
-                 label The poster was sharing something that they might later regret.
+                 label This person was sharing something that they might later regret.
              .field
                .ui.checkbox
                  input(type='checkbox')
                  label The post was not considerate of other people’s digital footprints.
+             .field
+               .ui.checkbox
+                 input(type='checkbox')
+                 label The post will not have an impact on this person’s digital footprint. 
              .field
                .ui.checkbox
                  input(type='checkbox')
@@ -44,7 +48,7 @@ block content
       i.big.photo.link.icon
   
 
-    .ui.fluid.card.test(data-hint="Click on the post to think about its impact on digital footprints!", data-position="top-left")
+    .ui.fluid.card.test#step1
       .ui.dimmer.flag
         .content
           .center
@@ -59,9 +63,9 @@ block content
               img.ui.avatar.image(src=cdn+'/profile_pictures/user71.JPG')
               span='Andrew Thomas'
       .img.post
-        img(src=cdn+'/digfootga1.jpg' style='max-width:100%;' onclick='openPostDigfootSim()')
+        img(src=cdn+'/post_pictures/digfootga1new.jpg' style='max-width:100%;' onclick='openPostDigfootSim()')
       .content
-        .description the first day after my bday and guess what i HAVE to do? clean your room says my momh
+        .description(data-hint="Read this post and then click on it to think more about how a post like this impacts someone’s digital footprint.", data-hintPosition="bottom-right") Like my post if you think math is stupid. haha anyone have hw i can copy?
       .three.ui.bottom.attached.icon.buttons
         .ui.reply.button(tabindex='0')
           i.reply.icon
@@ -82,12 +86,12 @@ block content
             .content
               a.author Connor McCormick
               .metadata
-                span.date 1543985371299
+                span.date Yesterday
                 .rating
                   i.heart.icon
                   span.num 1
                   |                                             Likes
-              .text haha that sucks
+              .text haha yeah math sucks
               .actions
                 a.like.comment Like
                 a.flag.comment Flag
@@ -107,13 +111,13 @@ block content
               |                                     You &apos;ve flagged this!
               h3.ui.inverted.header
                 span The admins will review this post further. We are sorry you had this experience.
-      .content
+      .content(data-hint="Read this post and then click on it to think more about how a post like this impacts someone’s digital footprint.", data-hintPosition="middle-middle")
         .right.floated.meta= "Yesterday"
         a(href='#')
               img.ui.avatar.image(src=cdn+'/profile_pictures/user50.jpg')
               span='Jenny Schmidt'
       .img.post
-        img(src=cdn+'/digfootga2.jpg' style='max-width:100%;' onclick='openPostDigfootSim()')
+        img(src=cdn+'/post_pictures/digfootga2.jpg' style='max-width:100%;' onclick='openPostDigfootSim()')
       .content
         .description Here is a picture of my cat!!
       .three.ui.bottom.attached.icon.buttons
@@ -136,7 +140,7 @@ block content
             .content
               a.author Jenny Chen
               .metadata
-                span.date 1543985371299
+                span.date Yesterday
                 .rating
                   i.heart.icon
                   span.num 1
@@ -153,7 +157,7 @@ block content
           i.big.send.link.icon
     //-##########
     
-    .ui.fluid.card.test(data-hint="Remember, your digital footprint can affect your reputation online and offline! Think about who can see your post and how they might view you as a result.", data-position="top-left")
+    .ui.fluid.card.test
         .ui.dimmer.flag
           .content
             .center
@@ -162,15 +166,15 @@ block content
                 |                                     You &apos;ve flagged this!
                 h3.ui.inverted.header
                   span The admins will review this post further. We are sorry you had this experience.
-        .content
+        .content(data-hint="Remember, your digital footprint can affect your reputation online and offline! Think about who can see your post and how they might view you as a result.", data-hintPosition="middle-middle")
           .right.floated.meta= "Yesterday"
           a(href='#')
                 img.ui.avatar.image(src=cdn+'/profile_pictures/user40.jpg')
                 span='Susan Turner'
         .img.post
-          img(src=cdn+'/digfootga3.jpg' style='max-width:100%;' onclick='openPostDigfootSim()')
+          img(src=cdn+'/post_pictures/digfootga3new.jpg' style='max-width:100%;' onclick='openPostDigfootSim()')
         .content
-          .description omg Lindsay I love you but you look ridiculous! lol
+          .description(data-hint="If someone posts something you don’t want to have as part of your digital footprint, you can ask them to delete it through a private message." data-hintPosition="bottom-right") pic of me and donna skipping class and hanging out @ a cafe today 😂
         .three.ui.bottom.attached.icon.buttons
           .ui.reply.button(tabindex='0')
             i.reply.icon
@@ -191,7 +195,7 @@ block content
               .content
                 a.author Michelle Rose
                 .metadata
-                  span.date 1543985371299
+                  span.date Yesterday
                   .rating
                     i.heart.icon
                     span.num 1
@@ -199,26 +203,7 @@ block content
                 .text lol!!
                 .actions
                   a.like.comment Like
-                  a.flag.comment Flag
-        .content
-          .ui.comments
-            .comment(commentid='5bbd01d88a48061a73337b96', data-hint="If someone posts something you don’t want to have as part of your digital footprint, you can ask them to delete it.", data-position="top-right")
-              a.avatar
-                img(src=cdn+'/profile_pictures/user30.jpg')
-              .content
-                a.author Linsday Stokes
-                .metadata
-                  span.date 1543985371299
-                  .rating
-                    i.heart.icon
-                    span.num 0
-                    |                                             Likes
-                .text Hey, do you mind deleting this picture?
-                .actions
-                  a.like.comment Like
-                  a.flag.comment Flag
-        .content
-          .ui.comments            
+                  a.flag.comment Flag           
         .extra.content
           .ui.fluid.left.labeled.right.icon.input
             .ui.label
@@ -243,7 +228,7 @@ block content
               img.ui.avatar.image(src=cdn+'/profile_pictures/user24.jpg')
               span='Jenny Chen'
       .img.post
-        img(src=cdn+'/digfootga4.jpg' style='max-width:100%;' onclick='openPostDigfootSim()')
+        img(src=cdn+'/post_pictures/digfootga4.jpg' style='max-width:100%;' onclick='openPostDigfootSim()')
       .content
         .description I don't want summer to end!!
       .three.ui.bottom.attached.icon.buttons
@@ -269,7 +254,7 @@ block content
             .content
               a.author Liam Knapke
               .metadata
-                span.date 1543985371299
+                span.date Yesterday
                 .rating
                   i.heart.icon
                   span.num 1
@@ -284,8 +269,11 @@ block content
             img.ui.avatar.image(src=cdn+'/profile_pictures/'+user.profile.picture, name=user.profile.name)
           input.newcomment(type='text' placeholder='Write a Comment')
           i.big.send.link.icon
-
-    button.ui.big.labeled.icon.button.cybertrans
+            
+    .ui.warning.message#clickAllDotsWarning(style="display:none;")
+      .header
+        | Click through all of the blue dots to continue
+    button.ui.big.labeled.icon.button.cybertrans#cyberTransButton(style="margin-bottom:4em;")
           i.rocket.icon
           |   Let's Continue!
 
@@ -301,11 +289,14 @@ block scripts
       
         var hints;
         var counter = 0;
-        var intro = introJs().setOptions({ 'hidePrev': true, 'hideNext': true, 'exitOnOverlayClick': false, 'showStepNumbers':false, 'scrollToElement':true, 'doneLabel':'Done &#10003' });
+        var intro = introJs().setOptions({ 'hidePrev': true, 'hideNext': true, 'exitOnOverlayClick': false, 'showStepNumbers':false, 'showBullets':false, 'scrollToElement':true, 'doneLabel':'Done &#10003' });
         intro.setOptions({
           steps: [
             { 
-              intro: "Click on the blue dots&nbsp;<a role='button' tabindex='0' class='introjs-hint'><div class='introjs-hint-dot'></div><div class='introjs-hint-pulse'></div></a> &nbsp; &nbsp; &nbsp;to learn more..."
+              element: document.querySelectorAll('#step1')[0],
+              intro: "Click on the blue dots&nbsp;<a role='button' tabindex='0' class='introjs-hint'><div class='introjs-hint-dot'></div><div class='introjs-hint-pulse'></div></a> &nbsp; &nbsp; &nbsp;to learn more...",
+              position: "left",
+              scrollTo: 'tooltip'
             }
             
           ]
@@ -315,8 +306,18 @@ block scripts
           console.log('hints added')
           hints.onhintclose(function(e) {
            counter++;
-           if(counter == 2) {$( ".cybertrans" ).addClass("green");}
+           if(counter == 5) {
+             $('#clickAllDotsWarning').hide();
+             $( ".cybertrans" ).addClass("green");
+           }
           });
+        });
+        
+        //error messaging
+        $('#cyberTransButton').on('click', function() {
+          if(counter != 5){
+            $('#clickAllDotsWarning').show();
+          }
         });
           
       };

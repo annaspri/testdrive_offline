@@ -2,30 +2,44 @@ extends ../ui_layout
 
 block content
 
-  .ui.text.container
+  .ui.text.container(style="margin-bottom:4em;")
     br
-    h3 You have completed this lesson!
-    h5 Tell us what you think of this lesson! Click #[a(href="https://cornell.qualtrics.com/jfe/form/SV_bDEwkFS1K5w4yVL" target="_blank") here] to share your thoughts!
-    h4 Would you like to: 
+    h1 You have completed this lesson!
+        
+    h3 Would you like to: 
 
     .ui.big.green.labeled.icon.button.finish
-        i.rocket.icon
+        i.checkmark.icon
         |   Finish Lesson
     br
     br
-    .ui.big.green.labeled.icon.button.cybertutorial
+    a(href='javascript:void(0);', onclick='javascript:startIntro();')
+        .ui.big.green.labeled.icon.button
+            i.edit.icon
+            |   Give Us Feedback (Optional) 
+            
+    br
+    br
+      
+    h3 You can also:
+
+    .ui.big.blue.labeled.icon.button.cybertutorial
         i.chevron.circle.left.icon
         |   Go Back to the Tutorial
     br
     br
-    .ui.big.green.labeled.icon.button.cybersim
+    .ui.big.blue.labeled.icon.button.cybersim
         i.chevron.circle.left.icon
         |   Go Back to the Guided Activity
     br
     br
-    .ui.big.green.labeled.icon.button.cyber_script
+    .ui.big.blue.labeled.icon.button.cyber_script
         i.chevron.circle.left.icon
         |   Go Back to the Timeline
-    br
-    br
-    br
+
+      
+block scripts
+  script().
+    function startIntro(){       
+      window.open(href='https://cornell.qualtrics.com/jfe/form/SV_9tMszwlpe1TIIxT');
+    };

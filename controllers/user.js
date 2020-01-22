@@ -18,8 +18,6 @@ function makeid(length) {
    return result;
 }
 
-
-
 /**
  * GET /login
  * Login page.
@@ -49,10 +47,10 @@ if (req.user) {
 
           if (notification_feed.length == 0)
           {
-            //peace out - send empty page - 
+            //peace out - send empty page -
             //or deal with replys or something IDK
-            console.log("No User Posts yet. Bell is black");
-            return res.send({result:false}); 
+            //console.log("No User Posts yet. Bell is black");
+            return res.send({result:false});
           }
 
           //We have values we need to check
@@ -72,7 +70,7 @@ if (req.user) {
                 {
                   var past_diff = user.lastNotifyVisit - user_post.absTime;
                 }
-                
+
                 else
                 {
                   var past_diff = 0;
@@ -88,7 +86,7 @@ if (req.user) {
             }//for loop
 
             //end of for loop and no results, so no new stuff
-            console.log("&&Bell Check&& End of For Loop, no Results")
+            //console.log("&&Bell Check&& End of For Loop, no Results")
             res.send({result:false});
           }
 
@@ -99,7 +97,7 @@ if (req.user) {
   }
 
  else{
-  console.log("No req.user")
+  //console.log("No req.user")
   return res.send({result:false});
 }
 };
@@ -129,7 +127,7 @@ exports.postLogin = (req, res, next) => {
       return res.redirect('/login');
     }
     if (!(user.active)) {
-      console.log("FINAL");
+      //console.log("FINAL");
       req.flash('final', { msg: '' });
       return res.redirect('/login');
     }
@@ -174,7 +172,7 @@ exports.postSignup = (req, res, next) => {
   //req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
   //xyzzy
   req.assert('signupcode', 'Wrong Sign Up Code').notEmpty();
-  
+
   const errors = req.validationErrors();
 
   if (errors) {
@@ -208,7 +206,7 @@ exports.postSignup = (req, res, next) => {
         req.flash('errors', { msg: 'No Class with that Access Code found. Please try again.' });
         return res.redirect('/signup');
       }
-      
+
       });//end of CLASS FIND ONE
 
   }
@@ -237,7 +235,7 @@ exports.postSignupInstructor = (req, res, next) => {
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
   //req.assert('signupcode', 'Wrong Sign Up Code').equals("0451");
-  
+
   const errors = req.validationErrors();
 
   if (errors) {
@@ -285,7 +283,7 @@ exports.postSignupInstructor = (req, res, next) => {
  */
 exports.getGuest = (req, res, next) => {
 
-  console.log("Now Making a Guest");
+  //console.log("Now Making a Guest");
   const user = new User({
     password: "thinkblue",
     username: "guest"+makeid(10),
@@ -301,7 +299,7 @@ exports.getGuest = (req, res, next) => {
   user.profile.location = "Guest Town";
   user.profile.bio = '';
   user.profile.picture = 'avatar-icon.svg';
-  console.log("New Guest is now: "+ user.profile.name);
+  //console.log("New Guest is now: "+ user.profile.name);
 
   User.findOne({ username: req.body.username }, (err, existingUser) => {
     if (err) { return next(err); }
@@ -315,7 +313,7 @@ exports.getGuest = (req, res, next) => {
         if (err) {
           return next(err);
         }
-        console.log("All done with Guest making!");
+        //console.log("All done with Guest making!");
         res.redirect('/intro/'+req.params.modId);
       });
     });
@@ -344,7 +342,7 @@ exports.postSignupUsername = (req, res, next) => {
   //req.assert('password', 'Password must be at least 4 characters long').len(4);
   //req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
   //req.assert('signupcode', 'Wrong Sign Up Code').equals("0451");
-  
+
   const errors = req.validationErrors();
 
   if (errors) {
@@ -363,7 +361,7 @@ exports.postSignupUsername = (req, res, next) => {
     lastNotifyVisit : Date.now()
   });
 
-  
+
 
   User.findOne({ username: req.body.username }, (err, existingUser) => {
     if (err) { return next(err); }
@@ -392,7 +390,7 @@ exports.postSignupUsernameClass = (req, res, next) => {
   //req.assert('password', 'Password must be at least 4 characters long').len(4);
   //req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
   //req.assert('signupcode', 'Wrong Sign Up Code').equals("0451");
-  
+
   const errors = req.validationErrors();
 
   if (errors) {
@@ -411,7 +409,7 @@ exports.postSignupUsernameClass = (req, res, next) => {
     lastNotifyVisit : Date.now()
   });
 
-  
+
 
   User.findOne({ username: req.body.username }, (err, existingUser) => {
     if (err) { return next(err); }
@@ -422,7 +420,7 @@ exports.postSignupUsernameClass = (req, res, next) => {
     user.save((err) => {
       if (err) { return next(err); }
       req.logIn(user, (err) => {
-        
+
         if (err) {
           return next(err);
         }
@@ -441,9 +439,9 @@ exports.postSignupUsernameClass = (req, res, next) => {
             });//exsistingClass.save
           }//if existingClass
 
-        });//Class.findOne 
+        });//Class.findOne
 
-        
+
       });//req.logIn
     });//user.save
   });//User.findOne
@@ -468,7 +466,7 @@ exports.postSignupPassword = (req, res, next) => {
 
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
-  
+
   const errors = req.validationErrors();
 
   if (errors) {
@@ -654,13 +652,13 @@ exports.getSignupInfo = (req, res) => {
 exports.getMe = (req, res) => {
 
   User.findById(req.user.id)
-  .populate({ 
+  .populate({
        path: 'posts.reply',
        model: 'Script',
        populate: {
          path: 'actor',
          model: 'Actor'
-       } 
+       }
     })
   .exec(function (err, user) {
     if (err) { return next(err); }
@@ -673,6 +671,75 @@ exports.getMe = (req, res) => {
 
 
 };
+
+exports.getHabitsTimer = (req, res) => {
+    User.findById(req.user.id)
+      .exec(function (err, user){
+        var startTime = user.firstHabitViewTime;
+        var totalTimeViewedHabits = 0;
+        if(user.habitsTimer){
+          for(var i = 0; i<user.habitsTimer.length; i++){
+            totalTimeViewedHabits = totalTimeViewedHabits + user.habitsTimer[i];
+          }
+        }
+
+        res.json({startTime: startTime, totalTimeViewedHabits:totalTimeViewedHabits});
+      });
+};
+
+/**
+ * POST /account/profile
+ * Update profile information.Which ad topic did the user pick? Targeted ads module only.
+ */
+exports.postUpdateInterestSelection = (req, res, next) => {
+
+  User.findById(req.user.id, (err, user) => {
+    if (err) { return next(err); }
+
+    user.targetedAdTopic = req.body.chosenTopic || '';
+
+    user.save((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.send({result:"success"});
+    });
+  });
+};
+
+/**
+ * POST /account/profile
+ * Update profile information. How long has the user looked at the free-play section? Habits module only.
+ */
+exports.postUpdateHabitsTimer = (req, res, done) => {
+
+  User.findById(req.user.id, (err, user) => {
+    if (err) { return next(err); }
+    if(req.body.habitsTimer){ //we are adding another view time to the array
+      if (user.habitsTimer){
+        user.habitsTimer.push(req.body.habitsTimer);
+      } else {
+        user.habitsTimer = [req.body.habitsTimer];
+      }
+    }
+    if (req.body.habitsStart) { //we are trying to record when the user first opened the free-play section
+      if(user.firstHabitViewTime == -1){ //only write this value if there's no value written yet, since user can revisit the feed
+        user.firstHabitViewTime = req.body.habitsStart;
+      }
+    }
+    user.save((err) => {
+      if (err) {
+        return next(err);
+      }
+      if (req.body.habitsStart){
+        res.json({url:'/modual/habits'});
+      } else {
+        res.send({result:"success"});
+      }
+    });
+  });
+};
+
 
 /**
  * POST /account/profile
@@ -700,7 +767,7 @@ exports.postUpdateProfile = (req, res, next) => {
 
     if (req.file)
     {
-      console.log("Changeing Picture now to: "+ req.file.filename);
+      //console.log("Changeing Picture now to: "+ req.file.filename);
       user.profile.picture = req.file.filename;
     }
 
@@ -749,11 +816,11 @@ exports.postUpdatePassword = (req, res, next) => {
  * Delete user account.
  */
 exports.getDeleteAccount = (req, res, next) => {
-  console.log("In postDeleteAccount");
+  //console.log("In postDeleteAccount");
   //is this a guest account?
   if(typeof req.user.isGuest !== 'undefined' && req.user.isGuest)
   {
-    console.log("@#@#@#@Deleting Guest User")
+    //console.log("@#@#@#@Deleting Guest User")
     User.remove({ _id: req.user.id }, (err) => {
       if (err) { return next(err); }
       req.logout();
@@ -764,12 +831,12 @@ exports.getDeleteAccount = (req, res, next) => {
   }
   else
   {
-    console.log("Deleting user feed posts Actions")
+    //console.log("Deleting user feed posts Actions")
     User.findById(req.user.id, (err, user) => {
       //somehow user does not exist here
       if (err) { return next(err); }
-      console.log("@@@@@@@@@@@  /deleteUserFeedActions req body  ", req.body);
-      
+      //console.log("@@@@@@@@@@@  /deleteUserFeedActions req body  ", req.body);
+
       user.feedAction =[];
       user.save((err) => {
         if (err) {
@@ -778,7 +845,7 @@ exports.getDeleteAccount = (req, res, next) => {
             return res.redirect('/');
           }
           return next(err);
-        }      
+        }
         res.redirect('/');
       });
     });

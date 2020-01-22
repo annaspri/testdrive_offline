@@ -4,25 +4,23 @@ block content
   
   .computer.only.tablet.only.four.wide.column 
   .eight.wide.computer.ten.wide.tablet.sixteen.wide.mobile.column()
-    .ui.container
+    #step1.ui.container
       h2.ui.header Privacy Settings
       br
-      .ui.divider
-      br
+      
+      br.ui.divider
       form.ui.form
-        .grouped.fields
-          label(for='account', style="font-size:140%") Account Settings
-            .field(data-hint=" If your account is on a “Public” setting, everyone on the Internet can access your account and see what you post. Let’s try changing it to “Private” so that only people you approve would be able to see your posts." data-hintPosition="top-middle")
+        .grouped.fields(data-hint=" If your account is on a “<i>Public</i>” setting, everyone on the internet can access your account and see what you post. Right now, it is set as a public account." data-hintPosition="top-middle")
+          label(for='account', style="font-size:140%") Account Settings  
+            .field(data-hint="Let’s try changing it to “<i>Private</i>” so that only people you approve would be able to see your posts. Slide the button over so “<i>Private account</i>” is selected." data-hintPosition="bottom-middle")
               br
               .ui.toggle.checkbox
-                input(type='checkbox' name='public')
-                label Private account
-            .field
-              .ui.toggle.checkbox
-                input(type='checkbox' name='public' checked='checked')
-                label Allow my account to show in search engine results
-                br
-                br
+                  input(type='checkbox' name='public')
+                  label Private account
+            span.settingSmallLabel When your account is private, only people you approve can see your posts.
+            br
+            br
+            
       .ui.divider
       br
       form.ui.form
@@ -31,7 +29,7 @@ block content
             br
             br
             label(for='contacts', style="font-size:120%") Contacts
-            .field(data-hint="This is where you can change who can contact you on the social media site. Try changing the settings to “Friends” or “Friends of Friends” so that strangers cannot comment on your posts or send you friend requests." data-hintPosition="top-middle")
+            .field(data-hint="This is where you can change who can contact you on the social media site. Try changing the settings to “<i>Friends</i>” or “<i>Friends of Friends</i>” so that strangers cannot comment on your posts or send you friend requests." data-hintPosition="top-middle")
               br
               label(style="font-size:100%") Allow friend requests from
                 .div(style='width: 200px;')
@@ -117,19 +115,16 @@ block content
       br
       form.ui.form
         .grouped.fields
-            label(for='information', style="font-size:140%") Information Sharing Settings
-            br
-            br 
-            label(for='location', style="font-size:120%") Location
-            .field(data-hint="Use this setting to control how you share your location information. Right now, it is set so that you are putting your location on every post. You can try turning this off entirely, or restricting who can see your location information.", data-hintPosition="top-middle")
-              br
-              .ui.toggle.checkbox
-                input(type='checkbox' name='locationShare' checked='checked')
-                label Turn on location sharing
-            .field
+            label(for='information', style="font-size:140%") Location Sharing Settings
+              .field(data-hint="Use this setting to control how you share your location information. Right now, it is set so that you are putting your location on every post." data-hintPosition="middle-middle")
+                br
+                .ui.toggle.checkbox
+                  input(type='checkbox' name='locationShare' checked='checked')
+                  label Turn on location sharing
+            .field(data-hint="You can try turning this off entirely, or restricting who can see your location information." data-hintPosition="middle-middle")
               br
               label(style="font-size:100%") Share my location with
-              .div(style='width: 200px;')
+                .div(style='width: 200px;')
                 .ui.selection.dropdown
                   input(type='hidden' name='shareLocationWith')
                   i.dropdown.icon
@@ -140,37 +135,35 @@ block content
                     .item(data-value='2') Friends
                     .item(data-value='3') Only Me
             br
-            label(for='advertisements', style="font-size:120%") Advertisements
-              .field(data-hint="This is where you can change how the social media site shows you advertisements. Right now, the site is using your information to show you targeted ads. Let’s try turning off these settings to opt out of targeted advertisements." data-hintPosition="top-middle")
-                br
-                .ui.toggle.checkbox
-                  input(type='checkbox' name='activityAds' checked='checked')
-                  label Show me ads based on my activity
-              .field
-                .ui.toggle.checkbox
-                  input(type='checkbox' name='partnersAds' checked='checked')
-                  label Show me ads based on data from partners
-                  br
-                  br
             .ui.divider
             br
-    button.ui.big.labeled.icon.button.cybertrans
+    .ui.warning.message#clickAllDotsSim(style="display:none;")
+      .header
+        | Click through all of the blue dots to continue
+    button.ui.big.labeled.icon.button.privacytrans2#privacytrans2(style="margin-bottom:4em;")
           i.rocket.icon
           |   Let's Continue!
 
   block scripts
     script().
+      var counter = 0;
       function startIntro(){
           var hints;
-          var counter = 0;
-          var intro = introJs().setOptions({ 'hidePrev': true, 'hideNext': true, 'exitOnOverlayClick': false, 'showStepNumbers':false, 'scrollToElement':true, 'doneLabel':'Done &#10003' });
+  
+          var intro = introJs().setOptions({ 'hidePrev': true, 'hideNext': true, 'exitOnOverlayClick': false, 'showStepNumbers':false, 'showBullets':false, 'scrollToElement':true, 'doneLabel':'Done &#10003' });
             intro.setOptions({
               steps: [
                 { 
-                  intro: "This is an example of a privacy settings page you could see on a social media site."
+                  element: document.querySelectorAll('#step1')[0],
+                  intro: "Now that you have learned about different privacy settings, let’s practice how to change them!",
+                  scrollTo:'tooltip',
+                  position:'left'
                 },
                 { 
-                  intro: "Here, you can change how you share information with others. Click on the blue dots&nbsp;<a role='button' tabindex='0' class='introjs-hint'><div class='introjs-hint-dot'></div><div class='introjs-hint-pulse'></div></a> &nbsp; &nbsp; &nbsp;to learn more!"
+                  element: document.querySelectorAll('#step1')[0],
+                  intro: "Click on the blue dots &nbsp;<a role='button' tabindex='0' class='introjs-hint'><div class='introjs-hint-dot'></div><div class='introjs-hint-pulse'></div></a> &nbsp; &nbsp; &nbsp;to learn more...",
+                  scrollTo:'tooltip',
+                  position:'left'
                 }
                 
               ]
@@ -180,11 +173,20 @@ block content
             console.log('hints added')
             hints.onhintclose(function(e) {
              counter++;
-             if(counter == 4) {$( ".cybertrans" ).addClass("green");}
+             if(counter == 5) {
+               $('#clickAllDotsSim').hide();
+               $( ".privacytrans2" ).addClass("green");
+             }
             });
           });
             
         };
+        
+        $('#privacytrans2').on('click', function () { 
+          if(counter != 5){
+            $('#clickAllDotsSim').show();
+          }
+        });
         
         $(window).on("load", function() {startIntro();});
 

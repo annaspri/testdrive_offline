@@ -1,0 +1,40 @@
+extends ../ui_layout
+
+block content
+  
+  .ui.text.container(style="margin-bottom:4em;")
+    br
+    .ui.raised.segment
+      h2.ui.header
+        //- i.check.square.outline.green.icon
+        .content What should you do if you accidentally fall for a phishing scam? 
+          br
+          br
+        #hiddenEye.content(style="color:#696969;")
+          .sub.header 
+            i.eye.icon 
+            span Read and check all the boxes below
+            //-.ui.styled.fluid.accordion   
+
+      .content.ui.list
+          .item
+            #item1.ui.segment
+              .ui.checkbox
+                input.ui(type="checkbox")#checkbox1
+                label If you have given a phishing website your password, change your password immediately.
+          .item
+            #item2.ui.segment
+              .ui.checkbox
+                input.ui(type="checkbox")#checkbox2
+                label Tell a trusted adult. They can help you take the right steps to protect your information.
+                  
+    br
+    .ui.warning.message#checkAllWarning(style="display:none;")
+      .header
+        | Check all the boxes to proceed
+    .ui.big.labeled.icon.button#phishingTutGuideButton
+        i.rocket.icon
+        |   Got it!
+
+block scripts
+  script(src="/module_js/phishing/phishing_tut_guide.js")

@@ -2,7 +2,7 @@
 extends ../ui_layout
   
 block content
-  -var cdn = "https://testdrive.sfo2.cdn.digitaloceanspaces.com";
+  -var cdn = "https://dhpd030vnpk29.cloudfront.net";
   .computer.only.tablet.only.four.wide.column 
     .ui.card
       .image
@@ -10,8 +10,8 @@ block content
       .content
         a.header= 'Lily Hui'
         .meta="@"+'hui_lily'
-        .description="😍🤩😝😁 boynton'20" 
-        .description 
+        .description="😍🤩😝😁" 
+        .description
           i.marker.icon
           span="Ithaca, NY"
 
@@ -19,15 +19,25 @@ block content
   .eight.wide.computer.ten.wide.tablet.sixteen.wide.mobile.column
 
     .ui.fluid.card.test
-      .content(data-hint="All of Lily’s posts have been hidden to strangers. Only her social media friends can see her posts now." data-hintPosition='middle-left')
-        .center.aligned.description No posts to show.
+      .content
+        .center.aligned.description(data-hint="All of Lily’s posts have been hidden to strangers. Only her social media friends can see her posts now." data-hintPosition='middle-left') This account is private.
       
             
     br
-
-    button.ui.big.labeled.icon.button.privacyresults
+    .content(data-hint="A private profile can protect your information and keep it safe. If you have your information available to the public, you don’t have control over who sees your content." data-hintPosition="middle-middle")
+    br
+    br
+    br
+    .content(data-hint="Make sure to think about what you want to share, and whether you want it to be public or private on the internet." data-hintPosition='middle-middle')
+    br 
+    
+    .ui.warning.message#clickAllDotsFinal(style="display:none;")
+      .header
+        | Click through all of the blue dots to continue
+    button.ui.big.labeled.icon.button.privacyresults#privacyresults(style="margin-bottom:4em;")
         i.rocket.icon
         |   Let's Continue!
+      
 
 
 
@@ -35,19 +45,28 @@ block content
 
 block scripts
   script().
-     
+   var literacy_counter = 0;
     function startIntro(){
         var hints;
-        var literacy_counter = 0;
+        
 
         hints = introJs().addHints();
         console.log('hints added')
         hints.onhintclose(function(e) {
          literacy_counter++;
-         if(literacy_counter == 1) {$( ".privacyresults" ).addClass("green");}
+         if(literacy_counter == 3) {
+           $('#clickAllDotsFinal').hide();
+           $( ".privacyresults" ).addClass("green");
+         }
         });
 
           
       };
+      
+      $('#privacyresults').on('click', function () { 
+        if(literacy_counter != 3){
+          $('#clickAllDotsFinal').show();
+        }
+      });
 
       $(window).on("load", function() {startIntro();});

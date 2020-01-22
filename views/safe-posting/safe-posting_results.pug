@@ -1,14 +1,14 @@
 extends ../ui_layout
 
 block content
-  -var cdn = "https://testdrive.sfo2.cdn.digitaloceanspaces.com";
-  .ui.container
+  -var cdn = "https://dhpd030vnpk29.cloudfront.net";
+  .ui.container(style="padding-bottom:4em;")
     .ui.stackable.column.grid
       .ui.column
         .insertPrint
         .ui.raised.segment
           h3.ui.header
-            i.question.purple.icon
+            i.question.blue.icon
             .content
               | Reflect
           .ui.label(style="background-color:#2185d08a;color:#000000d1;")
@@ -23,7 +23,7 @@ block content
             .ui.fluid.card.dim()#card1
               .content
                 .right.floated.meta 20 minutes ago  
-                a(href='/userjake_is_awesome15')
+                a(href='/user/zoe.g._')
                   img.ui.avatar.image(src=cdn+'/profile_pictures/user70.JPG')
                   span Zoe Goodall
               .img.post
@@ -102,8 +102,7 @@ block content
                   .ui.checkbox
                     input(type='checkbox')
                     label(for='think', style="font-size:120%;", tabindex='0')  It was appropriate for social media
-            hr
-
+            
     .ui.raised.segment.checkTwo
       .ui.label(style="background-color:#2185d08a;color:#000000d1;")
         h4(style="float:left")
@@ -138,6 +137,7 @@ block content
               .inline.fields
                 label(for='changeSub', name='changeSub') 
                 .field
+
                   .ui.checkbox
                     input(type='checkbox')
                     label(for='changeSub', style="font-size:120%;", tabindex='0')  I changed the subject
@@ -146,10 +146,11 @@ block content
               .inline.fields
                 label(for='humor', name='humor') 
                 .field
+
                   .ui.checkbox
                     input(type='checkbox')
                     label(for='humor', style="font-size:120%;", tabindex='0')  I used humor
-              
+
             hr
             .ui.form
               .inline.fields
@@ -158,23 +159,25 @@ block content
                   .ui.checkbox
                     input(type='checkbox')
                     label(for='ignore', style="font-size:120%;", tabindex='0')  I ignored the message
+                    
             hr
             .ui.form
               .inline.fields
-                label(for='direct', name='direct')
+                label(for='direct', name='direct') 
                 .field
                   .ui.checkbox
                     input(type='checkbox')
-                    label(for='ignore', style="font-size:120%;", tabindex='0')  I was direct
+                    label(for='direct', style="font-size:120%;", tabindex='0')  I was direct
+          
             hr
             .ui.form
               .inline.fields
-                label(for='else', name='else')
+                label(for='somethingElse', name='somethingElse') 
                 .field
                   .ui.checkbox
                     input(type='checkbox')
-                    label(for='ignore', style="font-size:120%;", tabindex='0')  I did something else
-            hr
+                    label(for='somethingElse', style="font-size:120%;", tabindex='0')  I did something else
+    
     .ui.raised.segment.responseOne
       .ui.label(style="background-color:#2185d08a;color:#000000d1;")
         h4(style="float:left")
@@ -191,7 +194,7 @@ block content
     br
     .ui.big.green.labeled.icon.button.cyberbullying_end
           i.rocket.icon
-          |   Finish Lesson
+          |   Continue
 
       
 block scripts

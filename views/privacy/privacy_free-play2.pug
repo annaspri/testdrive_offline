@@ -2,7 +2,7 @@
 extends ../ui_layout
   
 block content
-  -var cdn = "https://testdrive.sfo2.cdn.digitaloceanspaces.com";
+  -var cdn = "https://dhpd030vnpk29.cloudfront.net";
   .computer.only.tablet.only.four.wide.column 
     .ui.card
       .image
@@ -10,7 +10,7 @@ block content
       .content
         a.header= 'Lily Hui'
         .meta="@"+'hui_lily'
-        .description="😍🤩😝😁 boynton'20" 
+        .description="😍🤩😝😁" 
         .description 
           i.marker.icon
           span="Ithaca, NY"
@@ -18,17 +18,23 @@ block content
   
   #content.eight.wide.computer.ten.wide.tablet.sixteen.wide.mobile.column 
 
-    .ui.fluid.card.test
+    .ui.fluid.card.dim.test
+      .ui.dimmer.flag
+            .content
+              .center
+                h2.ui.inverted.icon.header
+                  i.red.flag.icon
+                  |  You&apos;ve flagged this!
+                  h3.ui.inverted.header
+                    span="The admins will review this post further. We are sorry you had this experience."
       .content
-        .right.floated.meta= "1 day ago"
-        |
-        a(href='/user/hui_lily')
-          img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
-          span='Lily Hui'
-      .image
-        img.post(src=cdn+"/post_pictures/nyctrip.jpg")
+        .right.floated.meta= "Yesterday"
+        img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
+        |   <b>Lily Hui</b>
+      .img.post
+        img#loadingPostOne(src=cdn+"/post_pictures/nyctrip.jpg", style="max-width:100%;")
       .content
-        .description(data-hint="This is what Lily’s profile now looks like to strangers on the Internet. You can see that all of her location information has been hidden." data-hintPosition="middle-right")
+        .description#dataHintOneA(data-hint="This is what Lily’s profile now looks like to the public. All of her location information has been hidden. It is now only visible to her social media friends." data-hintPosition="middle-right")
           | On a trip to nyc with my family😃
       .three.ui.bottom.attached.icon.buttons
         .ui.reply.button(tabindex='0')
@@ -46,19 +52,21 @@ block content
       .content
         .ui.comments
           .comment
-            a.avatar
+            a.avatar.image
               img(src=cdn+'/profile_pictures/user71.JPG')
             .content
               a.author Melissa Williams
               .metadata
-                span.date 2 hours ago
-                i.heart.icon
-                |  1 Like
+                span.date Yesterday
+                .rating
+                  i.heart.icon
+                  span.num 1
+                  |     Likes
               .text()
                 | wow so jealous!
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment Flag
       .extra.content
         .ui.fluid.left.labeled.right.icon.input
           .ui.label
@@ -66,18 +74,27 @@ block content
           input.newcomment(type='text' placeholder='Write a Comment')
           i.big.send.link.icon
             
-    .ui.fluid.card.test()
-      .content(data-hint="However, strangers can still see all of her posts." data-hintPosition="middle-middle")
+    .ui.fluid.card.dim.test()
+      .ui.dimmer.flag
+            .content
+              .center
+                h2.ui.inverted.icon.header
+                  i.red.flag.icon
+                  |  You&apos;ve flagged this!
+                  h3.ui.inverted.header
+                    span="The admins will review this post further. We are sorry you had this experience."
+      .content#dataHintTwoA(data-hint="Here is an example of a tagged post. Susan created this post and tagged Lily in it." data-hintPosition="middle-middle")
         .right.floated.meta= "3 days ago"
         |
-        a(href='/user/hui_lily')
-          img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
-          span='Lily Hui'
-      .image
-        img.post(src=cdn+"/post_pictures/bowlingalley.jpg")
+        a(href="/user/Suzieee")
+          img.ui.avatar.image(src=cdn+'/profile_pictures/user40.jpg')
+          span(style="color: black;") <b> Susan Turner</b>
+      .img.post
+        img#loadingPostTwo(src=cdn+"/post_pictures/bowlingalley.jpg", style="max-width:100%;")
       .content
-        .description
+        .description#dataHintThreeA(data-hint="Lily can’t change what these posts say because she did not make them. This can be a problem if she doesn’t want this post on her profile!", data-hintPosition="middle-right")
           | bowling with friends!!
+          span.locationtag  — with Emma Garcia and Lily Hui
       .three.ui.bottom.attached.icon.buttons
         .ui.reply.button(tabindex='0')
           i.reply.icon
@@ -94,33 +111,37 @@ block content
       .content
         .ui.comments
           .comment
-            a.avatar
+            a.avatar.image
               img(src=cdn+'/profile_pictures/user47.jpeg')
             .content
-              a.author Ariel Simon
+              a.author(href="/user/arihearts") Ariel Simon
               .metadata
-                span.date 1 Day ago
-                i.heart.icon
-                |  2 Likes
+                span.date 3 days ago
+                .rating
+                  i.heart.icon
+                  span.num 2
+                  |     Likes
               .text()
                 | looks like fun
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment.comment Like
+                a.flag.comment Flag
           .comment
-            a.avatar
+            a.avatar.image
               img(src=cdn+'/post_pictures/lilyprofpic.png')
             .content
               a.author Lily Hui
               .metadata
-                span.date 1 Day ago
-                i.heart.icon
-                |  1 Like
+                span.date 3 days ago
+                .rating
+                  i.heart.icon
+                  span.num 1
+                  |     Likes
               .text()
                 | let's go together next time!!
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment.comment Like
+                a.flag.comment Flag
       .extra.content
         .ui.fluid.left.labeled.right.icon.input
           .ui.label
@@ -128,15 +149,22 @@ block content
           input.newcomment(type='text' placeholder='Write a Comment')
           i.big.send.link.icon
 
-    .ui.fluid.card.test()
+    .ui.fluid.card.dim.test()
+      .ui.dimmer.flag
+            .content
+              .center
+                h2.ui.inverted.icon.header
+                  i.red.flag.icon
+                  |  You&apos;ve flagged this!
+                  h3.ui.inverted.header
+                    span="The admins will review this post further. We are sorry you had this experience."
       .content
         .right.floated.meta= "4 days ago"
         |
-        a(href='/user/hui_lily')
-          img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
-          span='Lily Hui'
-      .image
-        img.post(src=cdn+"/post_pictures/prettyflowers.png")
+        img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
+        |   <b>Lily Hui</b>
+      .img.post
+        img(src=cdn+"/post_pictures/prettyflowers.png", style="max-width:100%;")
       .content
         .description
           | pretty flowers in my back yard
@@ -156,19 +184,21 @@ block content
       .content
         .ui.comments
           .comment
-            a.avatar
+            a.avatar.image
               img(src=cdn+'/profile_pictures/user47.jpeg')
             .content
-              a.author Ariel Simon
+              a.author(href="/user/arihearts") Ariel Simon
               .metadata
-                span.date 2 Days ago
-                i.heart.icon
-                |  1 Like
+                span.date 4 days ago
+                .rating
+                  i.heart.icon
+                  span.num 1
+                  |     Likes
               .text()
                 | prettyyyyyy
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment.comment Flag
       .extra.content
         .ui.fluid.left.labeled.right.icon.input
           .ui.label
@@ -176,15 +206,22 @@ block content
           input.newcomment(type='text' placeholder='Write a Comment')
           i.big.send.link.icon
             
-    .ui.fluid.card.test()
+    .ui.fluid.card.dim.test()
+      .ui.dimmer.flag
+            .content
+              .center
+                h2.ui.inverted.icon.header
+                  i.red.flag.icon
+                  |  You&apos;ve flagged this!
+                  h3.ui.inverted.header
+                    span="The admins will review this post further. We are sorry you had this experience."
       .content
-        .right.floated.meta= "A week ago"
+        .right.floated.meta= "1 week ago"
         |
-        a(href='/user/hui_lily')
-          img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
-          span='Lily Hui'
-      .image
-        img.post(src=cdn+"/post_pictures/friendshipbracelet.png")
+        img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
+        |   <b>Lily Hui</b>
+      .img.post
+        img(src=cdn+"/post_pictures/friendshipbracelet.png", style="max-width:100%;")
       .content
         .description
           | Making friendship bracelets❤️
@@ -202,19 +239,21 @@ block content
           a.ui.basic.red.left.pointing.label.count=2
       .ui.comments
         .comment
-          a.avatar
+          a.avatar.image
             img(src=cdn+'/profile_pictures/user41.jpg')
           .content
-            a.author Emma Garcia
+            a.author(href="/user/emmaaaaa") Emma Garcia
             .metadata
-              span.date 5 Days ago
-              i.heart.icon
-              |  1 Like
+              span.date 5 days ago
+              .rating
+                i.heart.icon
+                span.num 1
+                |     Likes
             .text()
               | i remember this @_@
             .actions
-              a.like Like
-              a.flag Flag
+              a.like.comment Like
+              a.flag.comment.comment Flag
       .extra.content
         .ui.fluid.left.labeled.right.icon.input
           .ui.label
@@ -222,18 +261,27 @@ block content
           input.newcomment(type='text' placeholder='Write a Comment')
           i.big.send.link.icon
             
-    .ui.fluid.card.test()
+    .ui.fluid.card.dim.test()
+      .ui.dimmer.flag
+            .content
+              .center
+                h2.ui.inverted.icon.header
+                  i.red.flag.icon
+                  |  You&apos;ve flagged this!
+                  h3.ui.inverted.header
+                    span="The admins will review this post further. We are sorry you had this experience."
       .content
-        .right.floated.meta= "A week ago"
+        .right.floated.meta= "1 week ago"
         |
-        a(href='/user/hui_lily')
-          img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
-          span='Lily Hui'
-      .image
-        img.post(src=cdn+"/post_pictures/gingerbread.jpg")
+        a(href="/user/arihearts")
+          img.ui.avatar.image(src=cdn+'/profile_pictures/user47.jpeg')
+          span(style="color: black;") <b> Ariel Simon</b>
+      .img.post
+        img#loadingPostThree(src=cdn+"/post_pictures/gingerbread.jpg", style="max-width:100%;")
       .content
-        .description
-          | so proud of my gingerbread house
+        .description#dataHintFourA(data-hint="This is another example of a tagged post. Ariel created this post and tagged Lily in it." data-hintPosition="middle-right")
+          | so proud of my gingerbread house   
+          span.locationtag  — with Lily Hui
       .three.ui.bottom.attached.icon.buttons
         .ui.reply.button(tabindex='0')
           i.reply.icon
@@ -250,33 +298,37 @@ block content
       .content
         .ui.comments
           .comment
-            a.avatar
+            a.avatar.image
               img(src=cdn+'/profile_pictures/user40.jpg')
             .content
-              a.author Susan Turner
+              a.author(href="/user/Suzieee") Susan Turner
               .metadata
-                span.date 2 Days ago
-                i.heart.icon
-                |  1 Like
+                span.date 1 week ago
+                .rating
+                  i.heart.icon
+                  span.num 1
+                  |     Likes
               .text()
                 | Dat house
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment Flag
           .comment
-            a.avatar
+            a.avatar.image
               img(src=cdn+'/post_pictures/lilyprofpic.png')
             .content
               a.author Lily Hui
               .metadata
-                span.date 1 Day ago
-                i.heart.icon
-                |  1 Like
+                span.date 1 week ago
+                .rating
+                  i.heart.icon
+                  span.num 1
+                  |     Likes
               .text()
                 | Lol
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment Flag
       .extra.content
         .ui.fluid.left.labeled.right.icon.input
           .ui.label
@@ -284,15 +336,22 @@ block content
           input.newcomment(type='text' placeholder='Write a Comment')
           i.big.send.link.icon
             
-    .ui.fluid.card.test()
+    .ui.fluid.card.dim.test()
+      .ui.dimmer.flag
+            .content
+              .center
+                h2.ui.inverted.icon.header
+                  i.red.flag.icon
+                  |  You&apos;ve flagged this!
+                  h3.ui.inverted.header
+                    span="The admins will review this post further. We are sorry you had this experience."
       .content
-        .right.floated.meta= "Two weeks ago"
+        .right.floated.meta= "2 weeks ago"
         |
-        a(href='/user/hui_lily')
-          img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
-          span='Lily Hui'
-      .image
-        img.post(src=cdn+"/post_pictures/healthyeating.png")
+        img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
+        |   <b>Lily Hui</b>
+      .img.post
+        img(src=cdn+"/post_pictures/healthyeating.png", style="max-width:100%;")
       .content
         .description
           | healthy eating
@@ -312,33 +371,37 @@ block content
       .content
         .ui.comments
           .comment
-            a.avatar
+            a.avatar.image
               img(src=cdn+'/profile_pictures/user7.jpg')
             .content
-              a.author Lauren Wakefield
+              a.author(href="/user/l.wakefield17")  Lauren Wakefield
               .metadata
-                span.date 2 Days ago
-                i.heart.icon
-                |  1 Like
+                span.date 2 weeks ago
+                .rating
+                  i.heart.icon
+                  span.num 1
+                  |     Likes
               .text()
                 | Was it good?
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment Flag
           .comment
-            a.avatar
+            a.avatar.image
               img(src=cdn+'/profile_pictures/user47.jpeg')
             .content
-              a.author Ariel Simon
+              a.author(href="/user/arihearts") Ariel Simon
               .metadata
-                span.date 2 Days ago
-                i.heart.icon
-                |  1 Like
+                span.date 2 weeks ago
+                .rating
+                  i.heart.icon
+                  span.num 1
+                  |     Likes
               .text()
                 | very healthy
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment Flag
       .extra.content
         .ui.fluid.left.labeled.right.icon.input
           .ui.label
@@ -346,15 +409,22 @@ block content
           input.newcomment(type='text' placeholder='Write a Comment')
           i.big.send.link.icon
         
-    .ui.fluid.card.test()
+    .ui.fluid.card.dim.test()
+      .ui.dimmer.flag
+            .content
+              .center
+                h2.ui.inverted.icon.header
+                  i.red.flag.icon
+                  |  You&apos;ve flagged this!
+                  h3.ui.inverted.header
+                    span="The admins will review this post further. We are sorry you had this experience."
       .content
-        .right.floated.meta= "Two weeks ago"
+        .right.floated.meta= "2 weeks ago"
         |
-        a(href='/user/hui_lily')
-          img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
-          span='Lily Hui'
-      .image
-        img.post(src=cdn+"/post_pictures/zoomonkey.jpg")
+        img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
+        |   <b>Lily Hui</b>
+      .img.post
+        img(src=cdn+"/post_pictures/zoomonkey.jpg", style="max-width:100%;")
       .content
         .description
           | monkey!
@@ -378,15 +448,22 @@ block content
           i.big.send.link.icon
 
             
-    .ui.fluid.card.test()
+    .ui.fluid.card.dim.test()
+      .ui.dimmer.flag
+            .content
+              .center
+                h2.ui.inverted.icon.header
+                  i.red.flag.icon
+                  |  You&apos;ve flagged this!
+                  h3.ui.inverted.header
+                    span="The admins will review this post further. We are sorry you had this experience."
       .content
-        .right.floated.meta= "Two weeks ago"
+        .right.floated.meta= "2 weeks ago"
         |
-        a(href='/user/hui_lily')
-          img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
-          span='Lily Hui'
-      .image
-        img.post(src=cdn+"/post_pictures/lilypicture.png")
+        img.ui.avatar.image(src=cdn+'/post_pictures/lilyprofpic.png')
+        |   <b>Lily Hui</b>
+      .img.post
+        img(src=cdn+"/post_pictures/lilypicture.png", style="max-width:100%;")
       .content
         .description
           | hey it's me 
@@ -406,33 +483,37 @@ block content
       .content
         .ui.comments
           .comment
-            a.avatar
+            a.avatar.image
               img(src=cdn+'/profile_pictures/user7.jpg')
             .content
-              a.author Lauren Wakefield
+              a.author(href="/user/l.wakefield17")  Lauren Wakefield
               .metadata
-                span.date 2 Days ago
-                i.heart.icon
-                |  1 Like
+                span.date 2 weeks ago
+                .rating
+                  i.heart.icon
+                  span.num 1
+                  |     Likes
               .text()
                 | pretty pic ^^
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment Flag
           .comment
-            a.avatar
+            a.avatar.image
               img(src=cdn+'/post_pictures/lilyprofpic.png')
             .content
-              a.author Lilu Hui
+              a.author Lily Hui
               .metadata
-                span.date 2 Days ago
-                i.heart.icon
-                |  1 Like
+                span.date 2 weeks ago
+                .rating
+                  i.heart.icon
+                  span.num 1
+                  |     Likes
               .text()
                 | Thankss 🙂
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment Flag
       .extra.content
         .ui.fluid.left.labeled.right.icon.input
           .ui.label
@@ -443,8 +524,10 @@ block content
       
             
 
-    
-    button.ui.big.labeled.icon.button.settings2
+    .ui.warning.message#clickAllDotsFree2(style="display:none;")
+      .header
+        | Click through all of the blue dots to continue
+    button.ui.big.labeled.icon.button.settings3#settings3(style="margin-bottom:4em;")
         i.rocket.icon
         |   Let's Continue!
 
@@ -454,19 +537,127 @@ block content
 
 block scripts
   script().
-     
-    function startIntro(){
+    var literacy_counter = 0;
+  
+    //code from trying to get blue dots to cooperate with lazy loading
+    /*function startIntro(){
+      
+      if(window.location.hash) {
+      
+      } else {
+        
         var hints;
-        var literacy_counter = 0;
+  
 
+          $('#loadingPostOne')
+            .visibility({
+              type: 'image',
+              offset: 0
+            });
+          
+          $('#loadingPostOne').on("load", function (){
+            console.log("Loaded post one");
+            $('#dataHintOneA').attr({
+              'data-hint':"This is what Lily’s profile now looks like to the public. All of her location information has been hidden. It is now only visible to her social media friends.",
+              'data-hintPosition':"middle-right"
+            });
+            hints = introJs().addHints();
+            console.log("hints:");
+            console.log(hints);
+            hints.onhintclose(function(e) {
+              literacy_counter++;
+              if(literacy_counter == 4) {
+               $('#clickAllDotsFree2').hide();
+               $( ".settings3" ).addClass("green");
+             }
+            });
+          });
+          
+          $('#loadingPostTwo')
+            .visibility({
+              type: 'image',
+              offset: 0
+            });
+
+          $('#loadingPostTwo').on("load", function (){
+            $('#dataHintTwoA').attr({
+              'data-hint':"Here is an example of a tagged post. Susan created this post and tagged Lily in it.",
+              'data-hintPosition':"middle-middle"
+            });
+            $('#dataHintThreeA').attr({
+              'data-hint':"Lily can’t change what these posts say because she did not make them. This can be a problem if she doesn’t want this post on her profile!",
+              'data-hintPosition':"middle-right"
+            });
+            console.log("loaded post two");
+            hints = introJs().addHints();
+            console.log("hints:");
+            console.log(hints);
+            hints.onhintclose(function(e) {
+              literacy_counter++;
+              if(literacy_counter == 4) {
+               $('#clickAllDotsFree2').hide();
+               $( ".settings3" ).addClass("green");
+             }
+            });
+          });
+          
+          $('#loadingPostThree')
+            .visibility({
+              type: 'image',
+              offset: 0
+            });
+          $('#loadingPostThree').on("load", function (){
+            $('#dataHintFourA').attr({
+              'data-hint':"This is another example of a tagged post. Ariel created this post and tagged Lily in it.",
+              'data-hintPosition':"middle-right"
+            });
+            console.log("loaded post three");
+            hints = introJs().addHints();
+            console.log("hints:");
+            console.log(hints);
+            hints.onhintclose(function(e) {
+              literacy_counter++;
+              if(literacy_counter == 4) {
+               $('#clickAllDotsFree2').hide();
+               $( ".settings3" ).addClass("green");
+             }
+            });
+          });
+      
+        }
+          
+      };
+      
+      $(document).ready(function(){
+        $(this).scrollTop(0);
+      });*/
+      
+      //taken from old code, no lazy loading considerations
+      function startIntro(){
+        var hints;
+      
         hints = introJs().addHints();
         console.log('hints added')
         hints.onhintclose(function(e) {
          literacy_counter++;
-         if(literacy_counter == 2) {$( ".settings2" ).addClass("green");}
+         if(literacy_counter == 4) {
+           $('#clickAllDotsFree2').hide();
+           $( ".settings3" ).addClass("green");
+         }
         });
 
           
       };
+      
+      $('#settings3').on('click', function () { 
+        if(literacy_counter != 4){
+          $('#clickAllDotsFree2').show();
+        }
+      });
 
-      $(window).on("load", function() {startIntro();});
+      $(window).on("load", function() {
+        startIntro();
+      });
+      
+    
+      

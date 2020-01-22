@@ -1,0 +1,60 @@
+extends ../ui_layout
+
+block content
+
+  .ui.text.container(style="padding-bottom:4em;")
+    br
+    .column
+      .ui.raised.segment
+        .ui.blue.ribbon.label
+          h3
+            i.history.icon
+            | &nbsp Let's review!
+        br
+          
+        h5.ui.header
+          i.arrow.circle.right.blue.icon
+          .content
+            |  Social media sites have attention-grabbing design features such as notifications, video autoplay, and endless news feed scrolling.
+          
+            
+        h5.ui.header
+          i.arrow.circle.right.blue.icon
+          .content
+            | The constant feedback loops of social media can cause you to form unhealthy social media habits.
+          
+            
+        h5.ui.header
+          i.arrow.circle.right.blue.icon
+          .content
+            | Here are some strategies you can use to build healthy social media habits.
+            
+        h5.ui.header
+          i.caret.right.blue.icon(style="text-indent:3em;")
+          .content
+            |   Turn off or reduce the number of notifications you get from social media
+            
+        h5.ui.header
+          i.caret.right.blue.icon(style="text-indent:3em;")
+          .content
+            |   Be mindful of and track how much time you spend on social media
+        
+        h5.ui.header
+          i.caret.right.blue.icon(style="text-indent:3em;")
+          .content
+            |   Make sure to take breaks or disconnect from social media if you need to
+        br
+        br
+    
+    br
+    br
+    a(href='javascript:void(0);', onclick='javascript:startIntro();')
+        .ui.big.green.labeled.icon.button
+            i.rocket.icon
+            |   Got it!
+
+    block scripts
+  script().
+    function startIntro(){
+        window.location.href='/trans_script/habits';
+      };

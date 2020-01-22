@@ -1,24 +1,26 @@
 extends ../ui_layout
 
 block content
-
-  .ui.text.container
-
+  
+  .ui.text.container(style="margin-bottom:4em;")
+    br  
     .ui.raised.segment
+    
       h3.ui.header
         i.book.blue.icon
         .content
-          | Introduction
+          | Learn
       hr
       h5.ui.header
-        i.right.arrow.icon
+        i.arrow.circle.right.blue.icon
         .content
           | Social media is a great way to communicate with others and express yourself. You can also use it to show others, including colleges or future employers, who you are as a person.
  
       h5.ui.header
-        i.right.arrow.icon
+        i.arrow.circle.right.blue.icon
         .content
-          | However, social media use can also have its drawbacks. What you and others share is permanent and it's easy to get caught in sharing things you may later regret. It can also take a lot of time to manage different platforms and accounts.
+          | However, social media use can also have drawbacks. What you and others share is permanent, and it's easy to get caught in sharing things you may later regret. It can also take a lot of time to manage different platforms and accounts.
+      br
       #introduction_next.button.ui.mini.green.right.labeled.icon.button
               i.down.arrow.icon
               |   Next
@@ -27,14 +29,23 @@ block content
       h3.ui.header
         i.key.blue.icon
         .content Key Ideas
-          .sub.header 
-            i.hand.pointer.blue.icon 
-            span.blue Click on each label below to learn more
+      .sub.header 
+        i.hand.pointer.icon(style="color:gray;")
+        span(style="color: gray;") Click on each label below to learn more
+      br
       //- .ui.segments     
       .ui.stackable.two.column.grid
         .ui.column
+          #digital_footprint.ui.raised.segment
+            a.ui.blue.ribbon.label#digitalFootprintLabel
+                //- i.magic.icon 
+                span Digital Footprint
+            span.hidden(id="digital_footprint_info",style="font-weight:600") All the information online about a person either posted by that person or others, intentionally or unintentionally.
+              ul(style="font-weight:400") Your digital footprint can affect your reputation online and offline. It's important to manage it as much as you can!
+        
+        .ui.column
           #audence_digfoot.ui.raised.segment
-            a.ui.blue.ribbon.label
+            a.ui.blue.ribbon.label#audienceDigfootLabel
                 //- i.magic.icon 
                 span Audience
             span.hidden(id="audience_digfoot_info",style="font-weight:600")  Anyone who can see information about you or posted by you online.
@@ -43,38 +54,41 @@ block content
       
         .ui.column
           #oversharing.ui.raised.segment
-            a.ui.blue.ribbon.label
+            a.ui.blue.ribbon.label#oversharingLabel
                 //- i.dollar.sign.icon 
                 span Oversharing
             span.hidden(id="oversharing_info", style="font-weight:600") When people share something they later regret.
-              ul(style="font-weight:400") This can be when people share too much private information or just too much about themselves.
-
-    
-        .ui.column
-          #digital_footprint.ui.raised.segment
-            a.ui.blue.ribbon.label
-                //- i.magic.icon 
-                span Digital Footprint
-            span.hidden(id="digital_footprint_info",style="font-weight:600") All the information online about a person either posted by that person or others, intentionally or unintentionally.
-              ul(style="font-weight:400") It’s important to manage your digital footprint! It can affect your reputation online and offline. Other people might misunderstand what you posted or have an incorrect impression of who you are because they do not have context for your posts.
-              ul(style="font-weight:400") Try to be careful in thinking about who can see your post and how they might view you as a result.
-        
-    .ui.message.negative.transition.hidden
-      i.close.icon
+              ul(style="font-weight:400") This can be when people share too much private or personal information about themselves.
+              
+    .ui.warning.message#clickNextWarning(style="display:none;")
       .header
-       | Complete all activities to proceed!
+       | Click "Next"
+    .ui.warning.message#clickLabelsWarning(style="display:none;")
+     .header
+      | Click on each label to proceed 
     a(href='javascript:void(0);', onclick='javascript:startIntro();')
         .ui.labeled.icon.button
             i.rocket.icon
             |   Got it!
-    br
-    br
-    br
+
 block scripts
   script().
-    var incomplete_activities = ($('#question').is(":hidden") ||  $('#oversharing_info').is(":hidden") || $('#digital_footprint_info').is(":hidden")|| $('#audience_digfoot_info').is(":hidden"));
-    
-    $('#introduction_next').on('click', function () {      
+  
+    //a function to animate any unclicked labels, used for error messaging
+    function animateUnclickedLabels() {
+      if($('#digital_footprint_info').is(":hidden")){
+        $('#digitalFootprintLabel').transition('bounce');
+      }
+      if($('#audience_digfoot_info').is(":hidden")){
+        $('#audienceDigfootLabel').transition('bounce');
+      }
+      if($('#oversharing_info').is(":hidden")){
+        $('#oversharingLabel').transition('bounce');
+      }
+    };
+  
+    $('#introduction_next').on('click', function () {
+      $('#clickNextWarning').hide();      
       $('#question').show(); 
       $('#question').transition('jiggle');     
       if(!($('#question').is(":hidden") ||  $('#oversharing_info').is(":hidden") || $('#digital_footprint_info').is(":hidden") || $('#audience_digfoot_info').is(":hidden"))){
@@ -82,43 +96,51 @@ block scripts
       } 
     });
 
-    $('#oversharing>a').on('click', function () {      
+    $('#oversharing').on('click', function () {      
         $('#oversharing_info').show(); 
         $('#oversharing').transition('tada');     
-        if(!($('#question').is(":hidden") ||  $('#oversharing_info').is(":hidden") || $('#digital_footprint_info').is(":hidden")|| $('#audience_digfoot_info').is(":hidden"))){
+        if(!($('#question').is(":hidden") ||  $('#digital_footprint_info').is(":hidden") || $('#audience_digfoot_info').is(":hidden")|| $('#oversharing_info').is(":hidden"))){
+          $('#clickLabelsWarning').hide();
           $('.ui.labeled.icon.button').addClass('green');
         }
     });
 
-    $('#digital_footprint>a').on('click', function () {      
+    $('#digital_footprint').on('click', function () {      
         $('#digital_footprint_info').show();      
         $('#digital_footprint').transition('tada');     
-        if(!($('#question').is(":hidden") ||  $('#oversharing_info').is(":hidden") || $('#digital_footprint_info').is(":hidden") || $('#audience_digfoot_info').is(":hidden"))){
+        if(!($('#question').is(":hidden") ||  $('#digital_footprint_info').is(":hidden") || $('#audience_digfoot_info').is(":hidden")|| $('#oversharing_info').is(":hidden"))){
+          $('#clickLabelsWarning').hide();
           $('.ui.labeled.icon.button').addClass('green');
         }
     });
 
-     $('#audence_digfoot>a').on('click', function () {      
+     $('#audence_digfoot').on('click', function () {      
         $('#audience_digfoot_info').show(); 
         $('#audence_digfoot').transition('tada');     
-        if(!($('#question').is(":hidden") ||  $('#oversharing_info').is(":hidden") || $('#digital_footprint_info').is(":hidden") || $('#audience_digfoot_info').is(":hidden"))){
+        if(!($('#question').is(":hidden") ||  $('#digital_footprint_info').is(":hidden") || $('#audience_digfoot_info').is(":hidden")|| $('#oversharing_info').is(":hidden"))){
+          $('#clickLabelsWarning').hide();
           $('.ui.labeled.icon.button').addClass('green');
         }
     });
 
 
     function startIntro(){
-        if(($('#question').is(":hidden") ||  $('#oversharing_info').is(":hidden") || $('#digital_footprint_info').is(":hidden") || $('#audience_digfoot_info').is(":hidden"))){          
-          $('.ui.message').addClass('visible')
-            .delay(3000)
-            .queue(function() {
-              $(this).removeClass('visible').dequeue();
-          });
-        }
-        else {
-          console.log(incomplete_activities)
+      if($('#question').is(":hidden")){
+        //User has not clicked next
+        $('#clickNextWarning').show();
+        $('#introduction_next').transition('bounce');
+      }else{
+        var clickedAllLabels = ($('#audience_digfoot_info').is(":visible") && $('#digital_footprint_info').is(":visible") &&  $('#oversharing_info').is(":visible"));
+        if(clickedAllLabels == true){ 
+          //everything is good to proceed
+          $('#clickLabelsWarning').hide();
           window.location.href='/tutorial/digfoot';
-        }          
-      };
+        } else { 
+          //User has not clicked all the labels
+          $('#clickLabelsWarning').show();
+          animateUnclickedLabels();
+        }
+      }         
+    };
 
       //$(window).on("load", function() {startIntro();});

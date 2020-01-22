@@ -2,7 +2,7 @@
 extends ../ui_layout
   
 block content
-  -var cdn = "https://testdrive.sfo2.cdn.digitaloceanspaces.com";
+  -var cdn = "https://dhpd030vnpk29.cloudfront.net";
   .computer.only.tablet.only.four.wide.column 
     .ui.card
       .image
@@ -18,7 +18,15 @@ block content
   
   #content.eight.wide.computer.ten.wide.tablet.sixteen.wide.mobile.column 
 
-    .ui.fluid.card.test(data-hint="On this account, he only posts about Minecraft, which is one of his favorite games. He talks to other Minecraft fans through this account.", data-position="top-left")
+    #blueDotStep.ui.fluid.card.dim.test(data-hint="On this account, he only posts about Minecraft, which is one of his favorite games. He talks to other Minecraft fans through this account.", data-position="top-left")
+      .ui.dimmer.flag
+            .content
+              .center
+                h2.ui.inverted.icon.header
+                  i.red.flag.icon
+                  |  You&apos;ve flagged this!
+                  h3.ui.inverted.header
+                    span="The admins will review this post further. We are sorry you had this experience."
       .content
         .right.floated.meta= "Yesterday"
         |
@@ -50,28 +58,32 @@ block content
             .content
               a.author Ryan Freyer
               .metadata
-                span.date 11 Minutes ago
-                i.heart.icon
-                |  3 Likes
+                span.date Yesterday
+                .rating
+                  i.heart.icon
+                  span.num 3
+                  |     Likes
               .text()
                 | Where do they sell it?
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment.comment Flag
           .comment
             a.avatar
               img(src=cdn+'/profile_pictures/user18.png')
             .content
               a.author Ethan Kravitz
               .metadata
-                span.date 8 Minutes ago
-                i.heart.icon
-                |  3 Likes
+                span.date Yesterday
+                .rating
+                  i.heart.icon
+                  span.num 3
+                  |     Likes
               .text()
                 | steve is the best
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment.comment Flag
       .extra.content
         .ui.fluid.left.labeled.right.icon.input
           .ui.label
@@ -79,9 +91,17 @@ block content
           input.newcomment(type='text' placeholder='Write a Comment')
           i.big.send.link.icon
 
-    .ui.fluid.card.test()
+    .ui.fluid.card.dim.test()
+      .ui.dimmer.flag
+            .content
+              .center
+                h2.ui.inverted.icon.header
+                  i.red.flag.icon
+                  |  You&apos;ve flagged this!
+                  h3.ui.inverted.header
+                    span="The admins will review this post further. We are sorry you had this experience."
       .content
-        .right.floated.meta= "Yesterday"
+        .right.floated.meta= "4 days ago"
         |
         a(href='/user/minecraftboi23')
           img.ui.avatar.image(src=cdn+'/profile_pictures/user79.jpg')
@@ -111,28 +131,32 @@ block content
             .content
               a.author Ella Sroni
               .metadata
-                span.date 12 Minutes ago
-                i.heart.icon
-                |  3 Likes
+                span.date 4 days ago
+                .rating
+                  i.heart.icon
+                  span.num 3
+                  |     Likes
               .text()
                 | great job!!
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment.comment Flag
           .comment
             a.avatar
               img(src=cdn+'/profile_pictures/user74.jpg')
             .content
               a.author Ryan Freyer
               .metadata
-                span.date 2 Minutes ago
-                i.heart.icon
-                |  4 Likes
+                span.date 3 days ago
+                .rating
+                  i.heart.icon
+                  span.num 4
+                  |     Likes
               .text()
                 | pretty good design
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment.comment Flag
       .extra.content
         .ui.fluid.left.labeled.right.icon.input
           .ui.label
@@ -140,9 +164,17 @@ block content
           input.newcomment(type='text' placeholder='Write a Comment')
           i.big.send.link.icon
 
-    .ui.fluid.card.test()
+    .ui.fluid.card.dim.test()
+      .ui.dimmer.flag
+            .content
+              .center
+                h2.ui.inverted.icon.header
+                  i.red.flag.icon
+                  |  You&apos;ve flagged this!
+                  h3.ui.inverted.header
+                    span="The admins will review this post further. We are sorry you had this experience."
       .content
-        .right.floated.meta= "Yesterday"
+        .right.floated.meta= "6 days ago"
         |
         a(href='/user/minecraftboi23')
           img.ui.avatar.image(src=cdn+'/profile_pictures/user79.jpg')
@@ -150,7 +182,7 @@ block content
       .image
         img.post(src=cdn+"/post_pictures/selfpresga9.png")
       .content(data-hint="Would you say the same things in person? If you wouldn’t say that in front of your teacher, your mom, or your grandma, don’t post it!", data-position="top-left")
-        .description="would buy this minecraft sword irl?"
+        .description="Look at this lame minecraft sword lol it's totally trash?"
       .three.ui.bottom.attached.icon.buttons
         .ui.reply.button(tabindex='0')
           i.reply.icon
@@ -172,14 +204,16 @@ block content
             .content
               a.author Andrew Thomas
               .metadata
-                span.date 10 Minutes ago
-                i.heart.icon
-                |  1 Likes
+                span.date 6 days ago
+                .rating
+                  i.heart.icon
+                  span.num 1
+                  |     Likes
               .text()
                 | lmao i could make a better one
               .actions
-                a.like Like
-                a.flag Flag
+                a.like.comment Like
+                a.flag.comment.comment Flag
       .extra.content
         .ui.fluid.left.labeled.right.icon.input
           .ui.label
@@ -187,8 +221,10 @@ block content
           input.newcomment(type='text' placeholder='Write a Comment')
           i.big.send.link.icon
 
-    
-    button.ui.big.labeled.icon.button.cybertrans
+    .ui.warning.message#clickAllDotsSim(style="display:none;")
+      .header
+        | Click through all of the blue dots to continue
+    button.ui.big.labeled.icon.button.cybertrans#cyberTransButton(style="margin-bottom:4em;")
         i.rocket.icon
         |   Let's Continue!
 
@@ -202,11 +238,14 @@ block scripts
     function startIntro(){
         var hints;
         var literacy_counter = 0;
-        var intro = introJs().setOptions({ 'hidePrev': true, 'hideNext': true, 'exitOnOverlayClick': false, 'showStepNumbers':false, 'scrollToElement':true, 'doneLabel':'Done &#10003' });
+        var intro = introJs().setOptions({ 'hidePrev': true, 'hideNext': true, 'exitOnOverlayClick': false, 'showStepNumbers':false, 'showBullets':false, 'scrollToElement':true, 'doneLabel':'Done &#10003' });
           intro.setOptions({
             steps: [
               { 
-                intro: "Click on the blue dots&nbsp;<a role='button' tabindex='0' class='introjs-hint'><div class='introjs-hint-dot'></div><div class='introjs-hint-pulse'></div></a> &nbsp; &nbsp; &nbsp;to learn more..."
+                element: document.querySelectorAll('#blueDotStep')[0],
+                intro: "Click on the blue dots&nbsp;<a role='button' tabindex='0' class='introjs-hint'><div class='introjs-hint-dot'></div><div class='introjs-hint-pulse'></div></a> &nbsp; &nbsp; &nbsp;to learn more...",
+                scrollTo: 'tooltip',
+                position: 'right'
               }
               
             ]
@@ -216,8 +255,18 @@ block scripts
           console.log('hints added')
           hints.onhintclose(function(e) {
            literacy_counter++;
-           if(literacy_counter == 3) {$( ".cybertrans" ).addClass("green");}
+           if(literacy_counter == 3) {
+             $("#clickAllDotsSim").hide();
+             $( ".cybertrans" ).addClass("green");
+           }
           });
+        });
+        
+        //error messaging
+        $('#cyberTransButton').on('click', function() {
+          if(literacy_counter != 3){
+            $('#clickAllDotsSim').show();
+          }
         });
           
       };

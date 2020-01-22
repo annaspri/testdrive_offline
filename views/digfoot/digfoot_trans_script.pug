@@ -2,14 +2,12 @@ extends ../ui_layout
 
 block content
 
-  .ui.text.container
-    br
-    br
-    br
+  .ui.text.container(style="margin-bottom:4em;")
+
     block scripts
       script().
         function startIntro(){
-            var intro = introJs().setOptions({ 'hidePrev': true, 'hideNext': true, 'exitOnOverlayClick': false, 'showStepNumbers':false, 'scrollToElement':true, 'doneLabel':'Done &#10003' });
+            var intro = introJs().setOptions({ 'hidePrev': true, 'hideNext': true, 'exitOnOverlayClick': false, 'showStepNumbers':false, 'showBullets':false, 'scrollToElement':true, 'doneLabel':'Done &#10003', 'tooltipClass':'blueTooltip'});
               intro.setOptions({
                 steps: [
                   { 

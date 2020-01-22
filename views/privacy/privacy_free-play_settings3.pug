@@ -1,0 +1,249 @@
+extends ../ui_layout
+
+block content
+  
+  .computer.only.tablet.only.four.wide.column 
+  .eight.wide.computer.ten.wide.tablet.sixteen.wide.mobile.column()
+    .ui.container(data-hint="Lily would like to hide tagged posts from her profile. Which privacy settings would she have to change?")
+      h2.ui.header#topOfPage Privacy Settings
+      br
+      .ui.divider
+      br
+      form.ui.form
+        .grouped.fields
+          label(for='account', style="font-size:140%") Account Settings
+            br
+            br
+            .field
+              .ui.toggle.read-only.checkbox(name='togglePrivateAccount')
+                input(type='checkbox' name='toggleValue')
+                label Private account
+            span.settingSmallLabel When your account is private, only people you approve can see your posts.
+            br
+            br
+            
+      .ui.divider
+      br
+      form.ui.form
+        .grouped.fields
+            label(for='interaction', style="font-size:140%") Interaction Settings
+            br
+            br
+            label(for='contacts', style="font-size:120%") Contacts
+            .field
+              br
+              label(style="font-size:100%") Allow friend requests from
+                .div(style='width: 200px;')
+                .ui.selection.disabled.dropdown
+                  input(type='hidden' name='friendRequests')
+                  i.dropdown.icon
+                  .default.text Select
+                  .menu
+                    .item(data-value='0') Everyone
+                    .item(data-value='1') Friends of Friends
+            br
+            .field
+              label(style="font-size:100%") Who can see my friends list?
+                .div(style='width: 200px;')
+                .ui.selection.disabled.dropdown
+                  input(type='hidden' name='friendList')
+                  i.dropdown.icon
+                  .default.text Select
+                  .menu
+                    .item(data-value='0') Everyone
+                    .item(data-value='1') Friends of Friends
+                    .item(data-value='2') Friends
+                    .item(data-value='3') Only Me
+            br
+            label(for='comments', style="font-size:120%") Comments
+            .field
+              br
+              label(style="font-size:100%") Allow comments from
+                .div(style='width: 200px;')
+                .ui.selection.disabled.dropdown
+                  input(type='hidden' name='friendRequests')
+                  i.dropdown.icon
+                  .default.text Select
+                  .menu
+                    .item(data-value='0') Everyone
+                    .item(data-value='1') Friends of Friends
+                    .item(data-value='2') Friends
+                    .item(data-value='3') Only Me
+            br
+            .field
+              label(style="font-size:100%") Block comments from
+              .div(style='width: 200px;')
+                select.ui.fluid.search.disabled.dropdown(multiple='')
+                  option Fake N. Ame
+                  option Ima Robot
+                  option Cloe Hansen
+                  option Hayden Abbey
+                  option Kiki Pualani
+                  option Elli Andreas
+                  option Lauren Wakefield
+                  option Rob Yang
+                  option Katherine Zhou
+                  option Franklin Robinson
+                  option Aidan Acosta
+                  option Shika Ramphal
+                  option Jason Perez
+                  option Sarah Stella
+                  option Keith Hernandez
+                  option Elena Anderson
+                  option Mary Beckett
+                  option Ethan Kravitz
+                  option Dylan Goldstein
+                  option David Cole
+                  option Lana Sheehan
+                  option Claire Johnson
+                  option Jenny Chen
+                  option Ella Sroni
+            br
+            label(for='tags', style="font-size:120%") Tags
+              .field(data-hint="She can turn off tagging settings and hide tagged posts from her timeline. Let’s try doing this!" data-hintPosition="top-middle")
+                br
+                .ui.toggle.checkbox(name='allowTagToggle')#tagCue1
+                  input(type='checkbox' name='allowTagInput' checked='checked')
+                  label Allow people to tag me in their posts
+              .field
+                .ui.toggle.checkbox(name='autoTagToggle')#tagCue2
+                  input(type='checkbox' name='autoTagInput' checked='checked')
+                  label Automatically add tagged posts in my timeline
+                  br
+                  br
+      .ui.divider
+      br
+      form.ui.form
+        .grouped.fields
+            label(for='information', style="font-size:140%") Location Sharing Settings
+              .field
+                br
+                .ui.toggle.read-only.checkbox
+                  input(type='checkbox' name='locationShare')
+                  label Turn on location sharing
+            .field
+              br
+              label(style="font-size:100%") Share my location with
+                .div(style='width: 200px;')
+                .ui.selection.disabled.dropdown#locationDropdown
+                  input(type='hidden' name='resetDropdownSelection')
+                  i.dropdown.icon
+                  .default.text Select
+                  .menu
+                    .item(data-value='0') Everyone
+                    .item(data-value='1') Friends of Friends
+                    .item(data-value='2') Friends
+                    .item(data-value='3') Only Me
+            br
+            .ui.divider
+            br(data-hint="Have you turned off tagging settings and hidden tagged posts from Lily’s timeline? Click “<i>Let’s Continue!</i>” to see how her profile has changed." data-hintPosition="middle-right")
+
+    .ui.warning.message#tagCue1Text(style="display:none;")
+      .header
+        | Turn off tagging settings
+    .ui.warning.message#tagCue2Text(style="display:none;")
+      .header
+        | Hide tagged posts from the timeline
+    .ui.warning.message#tagDotText(style="display:none;")
+      .header
+        | Click through all of the blue dots
+    button.ui.big.labeled.icon.button.free4#free4Button(style="margin-bottom:4em;")
+        i.rocket.icon
+        |   Let's Continue!
+        
+        
+block scripts
+  script().
+    
+    var literacy_counter = 0;
+    
+    //Variables for the two key settings 
+    var keySetting1 = $("input[name='allowTagInput']").is(':checked');
+    var keySetting2 = $("input[name='autoTagInput']").is(':checked');
+    
+    //Initializing and managing the hints
+    function startIntro(){
+        var hints;
+        hints = introJs().addHints();
+        console.log('hints added')
+        hints.onhintclose(function(e) {
+         literacy_counter++;
+         //turn the button green if all three criteria are met
+         if(literacy_counter == 3) {
+           //remove the yellow warning about dots 
+           $('#tagDotText').hide();
+           if((keySetting1 == false) && (keySetting2 == false)){
+              $( ".free4" ).addClass("green");
+           }
+         }
+        });  
+      };
+
+    $(window).on("load", function() {startIntro();});
+
+    //Make the dropdown work
+    $('.ui.dropdown')
+      .dropdown('set selected', '0');
+    
+    $('#locationDropdown')
+      .dropdown('set selected', '2');
+      
+    /*All code below is using logic to determine if all required criteria are met before allowing to proceed, handling error messages*/
+    
+    //Giving appropriate feedback upon clicking continue
+  
+    $('#free4Button').on('click', function () {  
+      if(keySetting1 == true){
+        $('#tagCue1Text').show(); 
+        $('#tagCue1').transition('bounce');   
+      } else {
+        $('#tagCue1Text').hide();
+      }
+      if(keySetting2 == true){
+        $('#tagCue2Text').show(); 
+        $('#tagCue2').transition('bounce');
+      } else {
+        $('#tagCue2Text').hide();
+      } 
+      if(literacy_counter != 3){
+        $('#tagDotText').show(); 
+      }
+   });
+    
+    //Get the value of the toggle when it changes, make messaging disappear if corrrected
+    
+    $(".ui.toggle.checkbox[name='allowTagToggle']").change(function() {
+      keySetting1 = $("input[name='allowTagInput']").is(":checked");
+      
+      //If the yellow warning is already open, make it disappear when setting is corrected
+      if(keySetting1 == false){
+        $('#tagCue1Text').hide();
+      }
+
+      if(literacy_counter == 3) {
+        if((keySetting1 == false) && (keySetting2 == false)){
+           $( ".free4" ).addClass("green");
+        }
+        else{
+          $( ".free4" ).removeClass("green");
+        }
+      }
+    });
+    
+    $(".ui.toggle.checkbox[name='autoTagToggle']").change(function() {
+      keySetting2 = $("input[name='autoTagInput']").is(":checked");
+      
+      //If the yellow warning is already open, make it disappear when setting is corrected
+      if(keySetting2 == false){
+        $('#tagCue2Text').hide();
+      }
+
+      if(literacy_counter == 3) {
+        if((keySetting1 == false) && (keySetting2 == false)){
+           $( ".free4" ).addClass("green");
+        }
+        else{
+          $( ".free4" ).removeClass("green");
+        }
+      }
+    });

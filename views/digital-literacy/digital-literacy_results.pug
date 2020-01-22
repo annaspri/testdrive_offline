@@ -1,14 +1,14 @@
 extends ../ui_layout
 
 block content
-  -var cdn = "https://testdrive.sfo2.cdn.digitaloceanspaces.com";
-  .ui.container
+  -var cdn = "https://dhpd030vnpk29.cloudfront.net";
+  .ui.container(style="margin-bottom:4em;")
     .ui.stackable.column.grid
       .ui.column
         .insertPrint
         .ui.raised.segment
           h3.ui.header
-            i.question.purple.icon
+            i.question.blue.icon
             .content
               | Reflect
           .ui.label(style="background-color:#2185d08a;color:#000000d1;")
@@ -53,7 +53,7 @@ block content
             .ui.fluid.card.dim()#card3
               .content
                 .right.floated.meta 1 hour ago
-                a(href='/user/aperson')
+                a(href='')
                   img.ui.avatar.image(src=cdn+'/profile_pictures/user55.jpg')
                   span Lana Reed
               .img.post
@@ -212,7 +212,7 @@ block content
         .ui.fluid.card.dim()#card3
           .content
             .right.floated.meta 1 hour ago
-            a(href='/user/aperson')
+            a(href='')
               img.ui.avatar.image(src=cdn+'/profile_pictures/user55.jpg')
               span Lana Reed
           .img.post
@@ -280,7 +280,7 @@ block content
     .ui.raised.segment
       .ui.label(style="background-color:#2185d08a;color:#000000d1;")
         h4(style="float:left")
-          | What are the benefits and drawbacks of getting news on social media ?
+          | What are the benefits and drawbacks of getting news on social media?
       .ui.form
         .inline.fields
           label(style="font-size:120%;")
@@ -289,7 +289,7 @@ block content
     .ui.raised.segment
       .ui.label(style="background-color:#2185d08a;color:#000000d1;")
         h4(style="float:left")
-          | Why is it important to evaluate the information you see on social media ?
+          | Why is it important to evaluate the information you see on social media?
       .ui.form
         .inline.fields
           label(style="font-size:120%;")
@@ -313,7 +313,7 @@ block content
     br
     .ui.big.green.labeled.icon.button.cyberbullying_end
           i.rocket.icon
-          |   Finish Lesson
+          |   Continue
 
       
 block scripts
@@ -334,16 +334,16 @@ block scripts
         $(".checkFour").clone().appendTo(".insertPrint");
         
         $(".insertPrint").append('<div class="breakHere"</div>');
-        $(".insertPrint").append("<br><h4>What are the benefits and drawbacks of getting news on social media ?</h4>");
+        $(".insertPrint").append("<br><h4>What are the benefits and drawbacks of getting news on social media?</h4>");
         var responseOne = document.getElementById("literacy_responseOne").value;
         $(".insertPrint").append(responseOne);
         
-        $(".insertPrint").append("<h4>What are the benefits and drawbacks of getting news on social media ?</h4>");
-        var responseOne = document.getElementById("literacy_responseTwo").value;
+        $(".insertPrint").append("<h4>Why is it important to evaluate the information you see on social media?</h4>");
+        var responseTwo = document.getElementById("literacy_responseTwo").value;
         $(".insertPrint").append(responseTwo);
         
         $(".insertPrint").append("<h4>What would you do in the future on real social media sites to make sure that the information you see is credible?</h4>");
-        var responseThree = document.getElementById("literacy_responseTwo").value;
+        var responseThree = document.getElementById("literacy_responseThree").value;
         $(".insertPrint").append(responseThree);
         
         window.print();  

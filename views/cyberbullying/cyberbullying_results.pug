@@ -1,15 +1,15 @@
 extends ../ui_layout
 
 block content
-  -var cdn = "https://testdrive.sfo2.cdn.digitaloceanspaces.com";
+  -var cdn = "https://dhpd030vnpk29.cloudfront.net";
   
-  .ui.container
+  .ui.container(style="margin-bottom:4em;")
     .ui.stackable.column.grid
       .ui.column
         .insertPrint
         .ui.raised.segment
           h3.ui.header
-            i.question.purple.icon
+            i.question.blue.icon
             .content
               | Reflect
           .ui.label(style="background-color:#2185d08a;color:#000000d1;")
@@ -128,7 +128,7 @@ block content
     br
     .ui.big.green.labeled.icon.button.cyberbullying_end
           i.rocket.icon
-          |   Finish Lesson
+          |   Continue
 
       
 block scripts
@@ -150,7 +150,7 @@ block scripts
       $(".insertPrint").append(responseOne);
       
       $(".insertPrint").append("<h4>What will you do in the future to be an upstander if you see cyberbullying?</h4>");
-      var responseThree = document.getElementById("cyber_responseTwo").value;
+      var responseThree = document.getElementById("cyber_responseThree").value;
       $(".insertPrint").append(responseThree);
       
       window.print();  
