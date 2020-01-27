@@ -1,9 +1,9 @@
--var cdn = "https://dhpd030vnpk29.cloudfront.net";
+-var cdn = "";
 .computer.only.tablet.only.row 
   .ui.borderless.fixed.menu(style="z-index:10000002;")
     .ui.container#myheader
       a.item(href='/')
-        img.ui.tiny.image(src=cdn+'/finalLogo.png', id='logo')
+        img.ui.tiny.image(src='/finalLogo.png', id='logo')
       |  
       .right.menu
         if !user
@@ -19,7 +19,7 @@
               i.big.university.icon
           .ui.simple.dropdown.item(style="display: none;")
             if user.profile.picture
-              img.ui.mini.spaced.circular.image(src=cdn+'/profile_pictures/'+user.profile.picture)
+              img.ui.mini.spaced.circular.image(src='/profile_pictures/'+user.profile.picture)
             else
               img.ui.mini.spaced.circular.image(src=user.gravatar(60))
             |
@@ -30,7 +30,7 @@
 .mobile.only.row
   .ui.fluid.top.fixed.four.item.menu(style="z-index:10000002;")
     a.item(href='/')
-      img.ui.tiny.image(src=cdn+'/finalLogo.png', id='cell_logo')
+      img.ui.tiny.image(src='/finalLogo.png', id='cell_logo')
     if !user
       //-a.item(href='/login') Login
       //-a.item(href='/signup') Create Account
@@ -44,7 +44,7 @@
           i.big.university.icon
       .ui.simple.dropdown.item(style="display:none;")
         if user.profile.picture
-          img.ui.mini.spaced.circular.image(src=cdn+'/profile_pictures/'+user.profile.picture)
+          img.ui.mini.spaced.circular.image(src='/profile_pictures/'+user.profile.picture)
         else
           img.ui.mini.spaced.circular.image(src=user.gravatar(60))
         //-i.dropdown.icon

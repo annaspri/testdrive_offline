@@ -215,15 +215,17 @@ function check(req, res, next) {
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 app.use(express.static(path.join(__dirname, 'public2'), { maxAge: 31557600000 }));
 app.use('/semantic',express.static(path.join(__dirname, 'semantic'), { maxAge: 31557600000 }));
+app.use('/node_modules',express.static(path.join(__dirname, 'node_modules'), { maxAge: 31557600000 }));
 app.use(express.static(path.join(__dirname, 'uploads'), { maxAge: 31557600000 }));
-app.use(express.static(path.join(__dirname, 'post_pictures'), { maxAge: 31557600000 }));
+//app.use(express.static(path.join(__dirname, 'post_pictures'), { maxAge: 31557600000 }));
 app.use('/profile_pictures',express.static(path.join(__dirname, 'profile_pictures'), { maxAge: 31557600000 }));
+app.use('/post_pictures',express.static(path.join(__dirname, 'post_pictures'), { maxAge: 31557600000 }));
 
 /**
  * Primary app routes.
  */
 
-//create Gust account
+//create Guest account
  app.get('/guest/:modId', userController.getGuest);
 
 //main route is the lesson mod selection screen
