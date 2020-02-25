@@ -4,7 +4,7 @@ block content
   -var cdn = "https://dhpd030vnpk29.cloudfront.net";
 
   .computer.only.tablet.only.four.wide.column 
-    .ui.fixed.sticky.sideMenu(style='width: 272px !important; height: 500px !important;')
+    .ui.sticky.sideMenu
       .ui.vertical.menu(style="width:auto;")
         a.item(data-value='feed')#feedsteps 
           i.icon.home
@@ -38,7 +38,7 @@ block content
             
         .ui.message.centered.success(style="display:none;")#nextPageInstruction
           .content
-            .ui.header Click the activity button to continue! 
+            .ui.header Click the "My Activity" button to continue! 
     
         .ui.icon.message.warning(style="display:none; padding-left:1em; padding-right:1em;")#notificationWarning
           i.close.icon

@@ -5,7 +5,22 @@ block content
   -var cdn = "https://dhpd030vnpk29.cloudfront.net";
   .computer.only.tablet.only.four.wide.column 
   #content.eight.wide.computer.ten.wide.tablet.sixteen.wide.mobile.column()
-
+    .ui.one.column.centered.grid(style="padding-top:1em;")
+      .ui.fixed.bottom.sticky(style="padding-bottom:6em;")
+        .ui.icon.compact.message.warning(style="display:none;")#removeHidden
+          i.close.icon
+          i.question.icon.float
+          .content
+            .ui.header Need some help? 
+            p Make sure you are clicking "Got it" on the blue dots!
+          
+        .ui.icon.message.warning(style="display:none;")#clickAllDotsWarning
+          i.close.icon
+          i.hand.pointer.icon.float
+          .content
+            .ui.header There are still blue dots to find!
+            p Click through all of the blue dots to continue.
+            
     #step1.ui.fluid.card.dim()
       .ui.dimmer.flag
         .content
@@ -216,7 +231,7 @@ block content
           input.newcomment(type='text' placeholder='Write a Comment', data-hint='Let’s tell the bully that this behavior is not okay. Copy and paste the following comment: <i>“Guys, Sarah will be very upset if she sees this post. You should delete it."</i>', data-position="bottom-left")
           i.big.send.link.icon
 
-    .ui.warning.message#clickAllDotsSim(style="display:none;")
+    //-.ui.warning.message#clickAllDotsSim(style="display:none;")
       .header
         | Click through all of the blue dots to continue
     button.ui.big.labeled.icon.button.cybertrans#cyberTransButton(style="margin-bottom:4em;")
@@ -224,49 +239,5 @@ block content
           |   Let's Continue!
 
 block scripts
-  script().
-    function startIntro(){
-        
-        var hints;
-        var counter = 0;
-        var intro = introJs().setOptions({ 'hidePrev': true, 'hideNext': true, 'exitOnOverlayClick': false, 'showStepNumbers':false, 'showBullets':false, 'scrollToElement':true, 'doneLabel':'Done &#10003' });
-          intro.setOptions({
-            steps: [
-              { 
-                element: document.querySelectorAll('#step1')[0],
-                intro: "<div> <img class='ui avatar image' src='https://dhpd030vnpk29.cloudfront.net/profile_pictures/user55.jpg'/><b>Lana</b>  &  <img class='ui avatar image' src='https://dhpd030vnpk29.cloudfront.net/profile_pictures/user66.jpg'/><b>Emma</b> </div> <div>are in the same class at school. Recently, Emma has been saying a lot of mean things to Lana.</div>",
-                position:'right',
-                scrollTo: 'tooltip'
-              },
-              { 
-                element: document.querySelectorAll('#step1')[0],
-                intro: "Here you will see an example of what's been going on. Click on the blue dots &nbsp;<a role='button' tabindex='0' class='introjs-hint'><div class='introjs-hint-dot'></div><div class='introjs-hint-pulse'></div></a> &nbsp; &nbsp; &nbsp; to learn more about cyberbullying and what you can do about it.",
-                position:'right',
-                scrollTo:'tooltip'
-              }
-              
-            ]
-          });
-          intro.start().onexit(function() {
-          hints = introJs().addHints();
-          console.log('hints added')
-          hints.onhintclose(function(e) {
-           counter++;
-           if(counter == 4) {
-             $('#clickAllDotsSim').hide();
-             $( ".cybertrans" ).addClass("green");
-           }
-          });
-          
-          //error messaging
-          $('#cyberTransButton').on('click', function() {
-            if(counter != 4){
-              $('#clickAllDotsSim').show();
-            }
-          });
-        
-        });
-          
-      };
-
-      $(window).on("load", function() {startIntro();});
+  script(src = "/module_js/cyberbullying/cyberbullying_sim.js")
+    
